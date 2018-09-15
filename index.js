@@ -41,7 +41,7 @@ module.exports = (args) => {
     // All done
     .then((deployData) => {
       const type = (deployData.Stacks[0].StackStatus === 'CREATE_COMPLETE' ? 'CREATE' : 'UPDATE');
-      events.emit('DEPLOY_FINISHED', { type });
+      events.emit('COMPLETE', { type });
     })
 
     // Handle errors

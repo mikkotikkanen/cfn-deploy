@@ -75,7 +75,7 @@ module.exports = (args, events) => {
     log('Executing change set...');
     startProgressBar();
   });
-  events.on('DEPLOY_FINISHED', () => {
+  events.on('COMPLETE', () => {
     log('Deployment complete...');
   });
   events.on('ERROR', (err) => {
