@@ -1,15 +1,14 @@
 const AWS = require('aws-sdk');
 
-const cloudformation = new AWS.CloudFormation({
-  region: 'eu-west-1',
-});
 
-
-module.exports = (templateBody, events) => {
+module.exports = (templateBody, events) => new Promise((resolve, reject) => {
+  const cloudformation = new AWS.CloudFormation();
   events.emit('VALIDATING_TEMPLATE');
 
   const params = {
     TemplateBody: templateBody,
   };
-  return cloudformation.validateTemplate(params).promise();
-};
+  return cloudformation.validateTemplate(params).promise()
+    .then(resolve)
+    .catch(err => reject(new Error(err.message)));
+});

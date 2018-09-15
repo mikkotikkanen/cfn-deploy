@@ -1,4 +1,5 @@
 const { EventEmitter } = require('events');
+const AWS = require('aws-sdk');
 const loadFiles = require('./libs/loadFiles');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
 const validateStackState = require('./libs/cloudformation/validateStackState');
@@ -10,6 +11,11 @@ const deleteChangeSet = require('./libs/cloudformation/deleteChangeSet');
 module.exports = (args) => {
   const events = new EventEmitter();
   let templateBody;
+
+  // Set AWS config
+  AWS.config.update({
+    region: args.region,
+  });
 
   // Start with empty promise so that there is no immediate call and event emitter gets to return
   new Promise(resolve => resolve())

@@ -1,12 +1,10 @@
 const AWS = require('aws-sdk');
 const describeStack = require('./describeStack');
 
-const cloudformation = new AWS.CloudFormation({
-  region: 'eu-west-1',
-});
-
 
 module.exports = (stackName, changesetName) => new Promise((resolve, reject) => {
+  const cloudformation = new AWS.CloudFormation();
+
   // Make sure stack exists
   describeStack(stackName)
     .then((stackData) => {

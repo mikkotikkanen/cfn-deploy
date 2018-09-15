@@ -11,12 +11,11 @@ yargs
   .option('template', {
     describe: 'Path or url to template file',
   })
-  .option('parameters', {
-    describe: 'Path or url to parameters file',
+  .option('region', {
+    describe: 'Specifies the AWS region',
+    default: 'us-east-1',
   })
-  .option('profile', {
-    describe: 'Use a specific profile from your credential file.',
-  })
+  .version()
   .help()
   .demandOption(['stack-name', 'template']);
 
