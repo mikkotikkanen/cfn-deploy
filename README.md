@@ -10,6 +10,19 @@
 
 # Usage
 
+As command line utility
+
+```bash
+npm install cfn-deploy -g
+```
+
+Or for npm scripts or programmatic use
+
+```bash
+npm install cfn-deploy --save-dev
+```
+
+
 ## Options
 --stack-name
 --template
