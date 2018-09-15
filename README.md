@@ -1,11 +1,13 @@
 # cfn-deploy
 
-Simple utility for CloudFormatoin deployments
+Simple utility for CloudFormation deployments
+
+Features and documentation still very much work in progress.
 
 # Motivation
-- serverless framework seems like overkill just for CloudFormatoin deployments
+- serverless framework seems like overkill just for CloudFormation deployments
 - Modules like aws-cfm-utils do weird stuff like ASG toggling which is not kosher
-- `aws-cli cloudformation deploy` doesn't allow passing CloudFormatoin parameter files
+- `aws-cli cloudformation deploy` doesn't allow passing CloudFormation parameter files
 - Need for programmatic use in other modules
 - Need for usage in `package.json` scripts
 
