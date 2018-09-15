@@ -1,20 +1,24 @@
-serverless seems overkill just for deployments
-modules like aws-cfm-utils does weird stuff like ASG toggling
-aws-cli cloudformation deploy doesn't allow passing parameter files
-no programmatic use
-no pluggable programmatic use to other modules
+# cfn-deploy
 
+
+# Motivation
+- serverless seems overkill just for CloudFormatoin deployments
+- modules like aws-cfm-utils do weird stuff like ASG toggling
+- `aws-cli cloudformation deploy` doesn't allow passing parameter files
+- Other options have no proper no programmatic use
+
+
+# Usage
 
 ## Options
+--stack-name
+--template
 
+__Not yet implemented__
+--parameters
+--region
 --profile
 --accesskey
 --secretkey
---stack
---template-file
---template-url
---parameters-file
---parameters
 --capabilities
---region
 --tags
