@@ -1,6 +1,6 @@
 {
   "name": "cfn-deploy",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Simple AWS CloudFormation deployments",
   "keywords": [
     "aws",
@@ -9,8 +9,8 @@
   ],
   "author": "Mikko Tikkanen <mikko.tikkanen@gmail.com>",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/mikkotikkanen/cfn-deploy.git"
+    "type": "git",
+    "url": "https://github.com/mikkotikkanen/cfn-deploy.git"
   },
   "license": "ISC",
   "main": "index.js",
