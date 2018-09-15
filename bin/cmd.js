@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
 const index = require('../index');
-const defaultLogger = require('../libs/loggers/default');
+const defaultLogger = require('../libs/loggers/defaultLogger');
 
 
 yargs
