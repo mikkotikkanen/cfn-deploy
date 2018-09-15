@@ -1,3 +1,3 @@
 Resources:
-  HelloBucket29:
+  HelloBucket:
     Type: AWS::S3::Bucket
