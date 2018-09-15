@@ -19,7 +19,7 @@ module.exports = (args) => {
     secretAccessKey: args.secretKey,
   });
 
-  // Start with empty promise so that there is no immediate call and event emitter gets to return
+  // Start with empty promise so that there is no immediate call and event emitter returns first
   new Promise(resolve => resolve())
     // Load files
     .then(() => loadFiles(args.template, args.parameters, events))
