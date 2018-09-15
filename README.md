@@ -1,11 +1,13 @@
 # cfn-deploy
 
+Simple utility for CloudFormatoin deployments
 
 # Motivation
-- serverless seems overkill just for CloudFormatoin deployments
-- modules like aws-cfm-utils do weird stuff like ASG toggling
-- `aws-cli cloudformation deploy` doesn't allow passing parameter files
-- Other options have no proper no programmatic use
+- serverless framework seems like overkill just for CloudFormatoin deployments
+- Modules like aws-cfm-utils do weird stuff like ASG toggling which is not kosher
+- `aws-cli cloudformation deploy` doesn't allow passing CloudFormatoin parameter files
+- Need for programmatic use in other modules
+- Need for usage in `package.json` scripts
 
 
 # Usage
@@ -24,14 +26,18 @@ npm install cfn-deploy --save-dev
 
 
 ## Options
---stack-name
---template
+- --stack-name (Set stack name)
+- --template (Path to CloudFormation template)
+- --region (AWS region, defaults to us-east-1)
 
-__Not yet implemented__
---parameters
---region
---profile
---accesskey
---secretkey
---capabilities
---tags
+
+# Things to do (not yet implemented)
+
+- Url as template path
+- --parameters option
+- --region option
+- --profile option
+- --accesskey option
+- --secretkey option
+- --capabilities option
+- --tags option
