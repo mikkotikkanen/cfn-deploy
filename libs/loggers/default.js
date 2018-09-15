@@ -68,11 +68,11 @@ module.exports = (args, events) => {
     log('Validating template...');
   });
   events.on('CREATING_CHANGESET', () => {
-    log('Creating changeset...');
+    log('Creating change set...');
     startProgressBar();
   });
   events.on('EXECUTING_CHANGESET', () => {
-    log('Executing changeset...');
+    log('Executing change set...');
     startProgressBar();
   });
   events.on('DEPLOY_FINISHED', () => {

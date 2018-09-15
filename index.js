@@ -2,8 +2,8 @@ const { EventEmitter } = require('events');
 const loadFiles = require('./libs/loadFiles');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
 const validateStackState = require('./libs/cloudformation/validateStackState');
-const createChangeset = require('./libs/cloudformation/createChangeset');
-const executeChangeset = require('./libs/cloudformation/executeChangeset');
+const createChangeSet = require('./libs/cloudformation/createChangeSet');
+const executeChangeSet = require('./libs/cloudformation/executeChangeSet');
 const deleteChangeSet = require('./libs/cloudformation/deleteChangeSet');
 
 
@@ -27,8 +27,8 @@ module.exports = (args) => {
     .then(() => deleteChangeSet(args.stackName, 'cfn-deploy'))
 
     // Deploy template
-    .then(() => createChangeset(args, templateBody, {}, events))
-    .then(changesetData => executeChangeset(args.stackName, changesetData.ChangeSetId, events))
+    .then(() => createChangeSet(args, templateBody, {}, events))
+    .then(changesetData => executeChangeSet(args.stackName, changesetData.ChangeSetId, events))
 
     // All done
     .then((deployData) => {
