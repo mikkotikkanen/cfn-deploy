@@ -1,8 +1,7 @@
 # cfn-deploy
 
-Simple utility for CloudFormation deployments
+Simple utility for AWS CloudFormation deployments
 
-Features and documentation still very much work in progress.
 
 # Motivation
 - serverless framework seems like overkill just for CloudFormation deployments
@@ -12,7 +11,7 @@ Features and documentation still very much work in progress.
 - Need for usage in `package.json` scripts
 
 
-# Usage
+# Getting Started
 
 As command line utility
 
@@ -27,19 +26,38 @@ npm install cfn-deploy --save-dev
 ```
 
 
-## Options
-- --stack-name (Set stack name)
-- --template (Path to CloudFormation template)
-- --region (AWS region, defaults to us-east-1)
+## Configuring
 
+When accessing CloudFormation, `cfn-deploy` will by default use any locally pre-configured AWS
+account. You can pre-configure your account by any of the following methods:
+
+- With [aws-cli](https://aws.amazon.com/cli/), by running `aws-cli configure` (Recommended for
+local usecases)
+- Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_REGION` environment variables
+(Recommended for shared usecases)
+- Directly configure to  `.aws\config` and `.aws\credentials` files
+
+Additionally, you can define your AWS access and secret keys as parameters, but this is not
+recommended as they A) can end to version control or B) will stay readable in logs.
+
+
+## CLI Options
+
+```
+Options:
+  --stack-name  The name associated with the stack                    [required]
+  --template    Path or url to template file                          [required]
+  --region      AWS region                                [default: "us-east-1"]
+  --access-key  AWS Access Key
+  --secret-key  AWS Secret Access Key
+  --version     Show version number
+  --help        Show help
+```
 
 # Things to do (not yet implemented)
 
 - Url as template path
 - --parameters option
-- --region option
 - --profile option
-- --accesskey option
-- --secretkey option
 - --capabilities option
 - --tags option
