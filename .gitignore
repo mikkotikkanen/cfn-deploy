@@ -1,0 +1,9 @@
+# OSX
+.DS_Store
+
+# Tool specific
+.idea/
+.vscode/
+
+# Ignore npm modules
+**/node_modules/**
