@@ -6,20 +6,26 @@ const defaultLogger = require('../libs/loggers/default');
 
 yargs
   .option('stack-name', {
-    describe: 'The name that is associated with the stack',
+    describe: 'The name associated with the stack',
   })
   .option('template', {
     describe: 'Path or url to template file',
   })
   .option('region', {
-    describe: 'Specifies the AWS region',
+    describe: 'AWS region',
     default: 'us-east-1',
+  })
+  .option('access-key', {
+    describe: 'AWS Access Key',
+  })
+  .option('secret-key', {
+    describe: 'AWS Secret Access Key',
   })
   .version()
   .help()
   .demandOption(['stack-name', 'template']);
 
-// Remove boolean texts from "help" and "version" options in help view
+// Remove "[boolean]" texts from "help" and "version" options in help view
 yargs.getOptions().boolean.splice(-2);
 
 

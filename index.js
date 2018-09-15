@@ -15,6 +15,8 @@ module.exports = (args) => {
   // Set AWS config
   AWS.config.update({
     region: args.region,
+    accessKeyId: args.accessKey,
+    secretAccessKey: args.secretKey,
   });
 
   // Start with empty promise so that there is no immediate call and event emitter gets to return
