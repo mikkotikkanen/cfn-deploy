@@ -11,21 +11,6 @@ Simple utility for AWS CloudFormation deployments
 - Need for usage in `package.json` scripts
 
 
-# Getting Started
-
-As command line utility
-
-```bash
-npm install cfn-deploy -g
-```
-
-Or for npm scripts or programmatic use
-
-```bash
-npm install cfn-deploy --save-dev
-```
-
-
 ## Configuring
 
 When accessing CloudFormation, `cfn-deploy` will by default use any locally pre-configured AWS
@@ -41,23 +26,92 @@ Additionally, you can define your AWS access and secret keys as parameters, but 
 recommended as they A) can end to version control or B) will stay readable in logs.
 
 
-## CLI Options
+## Command line use
+
+Install as command line utility:
+
+```bash
+npm install cfn-deploy -g
+```
+
+```bash
+cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
+```
+
+### Available options (applies for both cli and package.json)
 
 ```
 Options:
-  --stack-name  The name associated with the stack                    [required]
-  --template    Path or url to template file                          [required]
-  --region      AWS region                                [default: "us-east-1"]
+  --stack-name  The name associated with the stack
+  --template    Path or url to template file
+  --region      AWS region
   --access-key  AWS Access Key
   --secret-key  AWS Secret Access Key
   --version     Show version number
   --help        Show help
 ```
 
-# Things to do (not yet implemented)
 
-- Url as template path
-- --parameters option
-- --profile option
-- --capabilities option
-- --tags option
+
+## Package.json script use
+
+Install as dev dependency:
+
+```bash
+npm install cfn-deploy --save-dev
+```
+
+Add deploy script to `package.json`:
+
+```json
+{
+  "scripts": {
+    "deploy": "cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml"
+  }
+}
+```
+
+
+## Programmatic use
+
+For programmatic use, `cfn-deploy` returns event stream on initialization, which allows for complete
+customization, even down to logging.
+
+Install as dependency:
+
+```bash
+npm install cfn-deploy
+```
+
+Write your thing:
+
+```javascript
+const cfnDeploy = require('cfn-deploy');
+
+const eventStream = cfnDeploy({
+  stackName: 'fancy-stack',
+  template: 'cfn/cfn-stack.yaml',
+});
+
+const eventStream.on('EXECUTING_CHANGESET', () => {
+  console.log('Doing the thing...');
+});
+const eventStream.on('COMPLETE', () => {
+  console.log('The thing is complete.');
+});
+const eventStream.on('ERROR', (err) => {
+  console.log('Aw. Dang. The thing errored.', err.message);
+});
+```
+
+### Available events
+
+| Event                  | When it fires                                |
+| ---------------------- | -------------------------------------------- |
+| LOADING_FILES          | Template & parameters files are being loaded |
+| VALIDATING_TEMPLATE    | Template is being validated                  |
+| VALIDATING_STACKSTATE  | Stack state is being validated               |
+| CREATING_CHANGESET     | Changeset is being created                   |
+| EXECUTING_CHANGESET    | Changeset is being executed                  |
+| COMPLETE               | Deployment is complete                       |
+| ERROR                  | Deployment errored                           |

@@ -4,8 +4,9 @@
   "description": "Simple AWS CloudFormation deployments",
   "keywords": [
     "aws",
-    "cloudformatoin",
-    "deploy"
+    "cloudformation",
+    "deploy",
+    "cli"
   ],
   "author": "Mikko Tikkanen <mikko.tikkanen@gmail.com>",
   "repository": {
