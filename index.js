@@ -13,6 +13,10 @@ module.exports = (args) => {
   let templateBody;
 
   // Set AWS config
+  if (args.profile) {
+    const creds = new AWS.SharedIniFileCredentials({ profile: args.profile });
+    AWS.config.credentials = creds;
+  }
   AWS.config.update({
     region: args.region,
     accessKeyId: args.accessKey,

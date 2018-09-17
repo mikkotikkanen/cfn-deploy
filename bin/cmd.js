@@ -15,6 +15,9 @@ yargs
     describe: 'AWS region',
     default: 'us-east-1',
   })
+  .option('profile', {
+    describe: 'Load profile from shared credentials file',
+  })
   .option('access-key', {
     describe: 'AWS Access Key',
   })

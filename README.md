@@ -38,13 +38,14 @@ npm install cfn-deploy -g
 cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
 ```
 
-### Available options (applies for both cli and package.json)
+### Available options
 
 ```
 Options:
   --stack-name  The name associated with the stack
   --template    Path or url to template file
   --region      AWS region
+  --profile     Load profile from shared credentials file
   --access-key  AWS Access Key
   --secret-key  AWS Secret Access Key
   --version     Show version number
