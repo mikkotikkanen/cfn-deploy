@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloudFormation.validateTemplate should error on non-existent template 1`] = `"ENOENT: no such file or directory, open './tests/templates/non-existent-template.yaml'"`;

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cfn-deploy should successfully create new stack 1`] = `
+Object {
+  "TemplateBody": "Resources:
+  HelloBucket:
+    Type: AWS::S3::Bucket
+",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 2`] = `
+Object {
+  "StackName": "new-stack",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 3`] = `
+Object {
+  "StackName": "new-stack",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 4`] = `
+Object {
+  "StackName": "new-stack",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 5`] = `
+Object {
+  "Capabilities": undefined,
+  "ChangeSetName": "cfn-deploy",
+  "ChangeSetType": "CREATE",
+  "Description": "Created with cfn-deploy",
+  "StackName": "new-stack",
+  "TemplateBody": "Resources:
+  HelloBucket:
+    Type: AWS::S3::Bucket
+",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 6`] = `
+Object {
+  "ChangeSetName": "fake-changeset-id",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 7`] = `
+Object {
+  "StackName": "new-stack",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 8`] = `
+Object {
+  "ChangeSetName": "fake-changeset-id",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 9`] = `
+Object {
+  "StackName": "new-stack",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 10`] = `
+Object {
+  "type": "CREATE",
+}
+`;

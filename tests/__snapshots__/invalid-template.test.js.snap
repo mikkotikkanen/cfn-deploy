@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloudFormation.validateTemplate should error on invalid template 1`] = `"INVALID_TEMPLATE"`;

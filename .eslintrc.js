@@ -3,7 +3,7 @@ module.exports = {
       es6: true,
       node: true,
       browser: true,
-      mocha: true,
+      jest: true,
     },
     extends: 'airbnb-base',
     rules: {
@@ -14,4 +14,3 @@ module.exports = {
     parserOptions: {
     },
   }
-  
