@@ -11,6 +11,8 @@ Simple utility for AWS CloudFormation deployments
 - Need for fully programmatic & customized use in other modules
 
 
+# Usage
+
 ## Configuring
 
 When accessing CloudFormation, `cfn-deploy` will by default use any locally pre-configured AWS
