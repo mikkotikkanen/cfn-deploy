@@ -17,9 +17,9 @@ When accessing CloudFormation, `cfn-deploy` will by default use any locally pre-
 account. You can pre-configure your account by any of the following methods:
 
 - With [aws-cli](https://aws.amazon.com/cli/), by running `aws-cli configure` (Recommended for
-local usecases)
+local environments)
 - Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_PROFILE` and `AWS_REGION` environment
-variables (Recommended for shared usecases)
+variables (Recommended for server/container environments)
 - Directly configure to  `.aws\config` and `.aws\credentials` files
 
 Additionally, you can define your AWS access and secret keys as parameters, but this is not
