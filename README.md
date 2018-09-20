@@ -3,7 +3,7 @@
 Simple utility for AWS CloudFormation deployments
 
 
-# Motivation
+## Motivation
 - Serverless framework seems like overkill just for CloudFormation deployments
 - Modules like aws-cfm-utils do weird stuff like ASG toggling which is not kosher
 - `aws-cli cloudformation deploy` doesn't allow passing CloudFormation parameter files
