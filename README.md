@@ -36,6 +36,8 @@ Install as command line utility:
 npm install cfn-deploy -g
 ```
 
+Call directly from command line:
+
 ```bash
 cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
 ```
@@ -87,6 +89,8 @@ npm install cfn-deploy
 ```
 
 Write your thing:
+
+__Note:__ In programmatic use, the options are in camel-case
 
 ```javascript
 const cfnDeploy = require('cfn-deploy');
