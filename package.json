@@ -16,7 +16,7 @@
   "license": "ISC",
   "main": "index.js",
   "bin": {
-    "cfn-deploy": "./bin/cmd.js"
+    "cfn-deploy": "./bin/cli.js"
   },
   "dependencies": {
     "aws-sdk": "^2.315.0",
