@@ -15,6 +15,9 @@ yargs
     describe: 'AWS region',
     default: 'us-east-1',
   })
+  .option('capabilities', {
+    describe: 'IAM capabilities',
+  })
   .option('profile', {
     describe: 'Load profile from shared credentials file',
   })
