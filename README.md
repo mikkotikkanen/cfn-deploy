@@ -46,14 +46,15 @@ cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
 
 ```
 Options:
-  --stack-name  The name associated with the stack
-  --template    Path or url to template file
-  --region      AWS region
-  --profile     Load profile from shared credentials file
-  --access-key  AWS Access Key
-  --secret-key  AWS Secret Access Key
-  --version     Show version number
-  --help        Show help
+  --stack-name    The name associated with the stack
+  --template      Path or url to template file
+  --region        AWS region
+  --capabilities  IAM capabilities
+  --profile       Load profile from shared credentials file
+  --access-key    AWS Access Key
+  --secret-key    AWS Secret Access Key
+  --version       Show version number
+  --help          Show help
 ```
 
 
