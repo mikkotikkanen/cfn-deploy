@@ -83,6 +83,5 @@ module.exports = (args, events) => {
     if (args.debug) {
       console.log(err.stack);
     }
-    process.exit(1);
   });
 };

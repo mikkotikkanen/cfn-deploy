@@ -52,3 +52,15 @@ updateNotifier({
   updateCheckInterval: 0,
   isGlobal: isInstalledGlobally,
 }).notify();
+
+// Exit process properly on error
+let hasErrored = false;
+events.on('ERROR', () => {
+  hasErrored = true;
+});
+
+events.on('FINALLY', () => {
+  if (hasErrored) {
+    process.exit(1);
+  }
+});
