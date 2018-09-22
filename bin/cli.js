@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
+const updateNotifier = require('update-notifier');
+const isInstalledGlobally = require('is-installed-globally');
+const pckg = require('../package.json');
 const index = require('../index');
 const defaultLogger = require('../libs/loggers/defaultLogger');
 
@@ -41,3 +44,11 @@ const events = index(args);
 
 // Start logger
 defaultLogger(args, events);
+
+
+// Set update notifier
+updateNotifier({
+  pkg: pckg,
+  updateCheckInterval: 0,
+  isGlobal: isInstalledGlobally,
+}).notify();
