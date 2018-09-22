@@ -122,3 +122,4 @@ const eventStream.on('ERROR', (err) => {
 | EXECUTING_CHANGESET    | Changeset is being executed                  |
 | COMPLETE               | Deployment is complete                       |
 | ERROR                  | Deployment errored                           |
+| FINALLY                | All work finished (errored or complete)      |

@@ -49,7 +49,10 @@ module.exports = (args) => {
     })
 
     // Handle errors
-    .catch(err => events.emit('ERROR', err));
+    .catch(err => events.emit('ERROR', err))
+
+    // Trigger finally event
+    .finally(() => events.emit('FINALLY'));
 
   return events;
 };
