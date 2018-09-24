@@ -11,6 +11,7 @@ Simple utility for AWS CloudFormation deployments
 - Need for fully programmatic & customized use in other modules
 
 
+
 # Configuration
 
 cfn-deploy will by default use any locally pre-configured AWS account. You can pre-configure your
@@ -24,6 +25,7 @@ variables (Recommended for server/container environments)
 
 Additionally, you can define your AWS access and secret keys as parameters, but this is not
 recommended as they A) can end to version control or B) will stay readable in logs.
+
 
 
 # Command line use
@@ -41,6 +43,7 @@ cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
 ```
 
 See [options](#options) for more details.
+
 
 
 # Package.json script use
@@ -62,6 +65,9 @@ Add deploy script to `package.json`:
   }
 }
 ```
+
+See [options](#options) for more details.
+
 
 
 # Programmatic use
@@ -104,6 +110,8 @@ const eventStream.on('ERROR', (err) => {
 });
 ```
 
+See [options](#options) for more details.
+
 ### Available events
 
 | Event                  | When it fires                                |
@@ -116,6 +124,7 @@ const eventStream.on('ERROR', (err) => {
 | COMPLETE               | Deployment is complete                       |
 | ERROR                  | Deployment errored                           |
 | FINALLY                | All work finished (errored or complete)      |
+
 
 
 # Options
