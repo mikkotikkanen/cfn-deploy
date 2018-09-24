@@ -11,12 +11,10 @@ Simple utility for AWS CloudFormation deployments
 - Need for fully programmatic & customized use in other modules
 
 
-# Usage
+# Configuration
 
-## Configuring
-
-When accessing CloudFormation, `cfn-deploy` will by default use any locally pre-configured AWS
-account. You can pre-configure your account by any of the following methods:
+cfn-deploy will by default use any locally pre-configured AWS account. You can pre-configure your
+account by any of the following methods:
 
 - With [aws-cli](https://aws.amazon.com/cli/), by running `aws-cli configure` (Recommended for
 local environments)
@@ -28,44 +26,30 @@ Additionally, you can define your AWS access and secret keys as parameters, but 
 recommended as they A) can end to version control or B) will stay readable in logs.
 
 
-## Command line use
+# Command line use
 
-Install as command line utility:
+## Install
 
 ```bash
 npm install cfn-deploy -g
 ```
 
-Call directly from command line:
+## Usage
 
 ```bash
 cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
 ```
 
-### Available options
 
-```
-Options:
-  --stack-name    The name associated with the stack
-  --template      Path or url to template file
-  --region        AWS region
-  --capabilities  IAM capabilities
-  --profile       Load profile from shared credentials file
-  --access-key    AWS Access Key
-  --secret-key    AWS Secret Access Key
-  --version       Show version number
-  --help          Show help
-```
+# Package.json script use
 
-
-
-## Package.json script use
-
-Install as dev dependency:
+## Install
 
 ```bash
 npm install cfn-deploy --save-dev
 ```
+
+## Usage
 
 Add deploy script to `package.json`:
 
@@ -78,10 +62,18 @@ Add deploy script to `package.json`:
 ```
 
 
-## Programmatic use
+# Programmatic use
 
-For programmatic use, `cfn-deploy` returns event stream on initialization, which allows for complete
-customization, even down to logging.
+## Install
+
+```bash
+npm install cfn-deploy
+```
+
+## Usage
+
+For programmatic use, cfn-deploy returns event stream on initialization, which allows for complete
+customization, down to event logging.
 
 Install as dependency:
 
@@ -89,9 +81,7 @@ Install as dependency:
 npm install cfn-deploy
 ```
 
-Write your thing:
-
-__Note:__ In programmatic use, the options are in camel-case
+Write your application:
 
 ```javascript
 const cfnDeploy = require('cfn-deploy');
@@ -124,3 +114,45 @@ const eventStream.on('ERROR', (err) => {
 | COMPLETE               | Deployment is complete                       |
 | ERROR                  | Deployment errored                           |
 | FINALLY                | All work finished (errored or complete)      |
+
+
+# Options
+
+Command line and package.json options are same, programmatic configuration uses camelCase for
+options (if different, written in parenthesis).
+
+## stack-name (programmatic: stackName)
+
+The name associated with the stack
+
+## template
+
+Path or url to template file
+
+## region
+
+AWS region
+
+## capabilities
+
+AWS IAM capabilities
+
+## profile
+
+Load profile from shared credentials file
+
+## access-key (programmatic: accessKey)
+
+AWS Access Key
+
+## secret-key (programmatic: secretKey)
+
+AWS Secret Access Key
+
+## version (only for command line/package.json)
+
+Show version number
+
+## help (only for command line/package.json)
+
+Show help
