@@ -40,6 +40,8 @@ npm install cfn-deploy -g
 cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
 ```
 
+See [options](#options) for more details.
+
 
 # Package.json script use
 
