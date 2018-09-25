@@ -39,7 +39,7 @@ npm install cfn-deploy -g
 ## Usage
 
 ```bash
-cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
+cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml
 ```
 
 See [options](#options) for more details.
@@ -61,7 +61,7 @@ Add deploy script to `package.json`:
 ```json
 {
   "scripts": {
-    "deploy": "cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml"
+    "deploy": "cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml"
   }
 }
 ```
@@ -141,6 +141,61 @@ __Note:__ In programmatic use: `stackName`
 ## template
 
 Path to template file
+
+## parameters
+
+Path to parameters file (.json). Multiple parameters options are allowed and values are combined
+in the order they are defined, with values from latter overwriting previous
+
+Valid .json files:
+
+- `aws-cli cloudformation` type:
+
+```json
+[
+  {
+    "ParameterKey": "FirstParam",
+    "ParameterValue": "first-param-value"
+  },
+  {
+    "ParameterKey": "SecondParam",
+    "ParameterValue": "second-param-value"
+  }
+]
+```
+
+- AWS CodePipeline parameters type:
+
+```json
+{
+  "Parameters": {
+    "FirstParam": "first-param-value",
+    "SecondParam": "second-param-value"
+  }
+}
+```
+
+- Plain JSON object
+
+```json
+{
+  "FirstParam": "first-param-value",
+  "SecondParam": "second-param-value"
+}
+```
+
+### Multiple parameters files (command line/package.json scripts)
+
+```bash
+cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
+```
+
+### Multiple parameters files (programmatic use)
+
+```javascript
+parameters: ['./cfn/params1.json', './cfn/params2.json'],
+```
+
 
 ## region
 

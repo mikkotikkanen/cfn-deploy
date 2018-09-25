@@ -15,7 +15,7 @@ yargs
     describe: 'Path to template file',
   })
   .option('parameters', {
-    describe: 'Path to parameter file (.json)',
+    describe: 'Path(s) to parameter file(s) (.json)',
   })
   .option('region', {
     describe: 'AWS region',
