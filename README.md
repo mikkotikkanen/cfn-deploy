@@ -132,13 +132,15 @@ See [options](#options) for more details.
 Command line and package.json options are same, programmatic configuration uses camelCase for
 options (if different, written in parenthesis).
 
-## stack-name (programmatic: stackName)
+## stack-name
 
 The name associated with the stack
 
+__Note:__ In programmatic use: `stackName`
+
 ## template
 
-Path or url to template file
+Path to template file
 
 ## region
 
@@ -150,20 +152,28 @@ AWS IAM capabilities
 
 ## profile
 
-Load profile from shared credentials file
+Load profile from shared credentials file (in `.aws\credentials`)
 
-## access-key (programmatic: accessKey)
+## access-key
 
 AWS Access Key
 
-## secret-key (programmatic: secretKey)
+__Note:__ In programmatic use: `accessKey`
+
+## secret-key
 
 AWS Secret Access Key
 
-## version (only for command line/package.json)
+__Note:__ In programmatic use: `secretKey`
+
+## version
 
 Show version number
 
-## help (only for command line/package.json)
+__Note:__ Only for command line or package.json script use
+
+## help
 
 Show help
+
+__Note:__ Only for command line or package.json script use

@@ -2,9 +2,19 @@
 
 exports[`cfn-deploy should successfully update existing stack 1`] = `
 Object {
-  "TemplateBody": "Resources:
+  "TemplateBody": "Parameters:
+  S3BucketName:
+    Description: \\"S3 Bucket name\\"
+    Type: String
+  DummyParam:
+    Description: \\"Dummy parameter\\"
+    Type: String
+
+Resources:
   HelloBucket:
     Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub \\"\${AWS::StackName}-\${S3BucketName}\\"
 ",
 }
 `;
@@ -39,10 +49,21 @@ Object {
   "ChangeSetName": "cfn-deploy",
   "ChangeSetType": "UPDATE",
   "Description": "Created with cfn-deploy",
+  "Parameters": Array [],
   "StackName": "existing-stack",
-  "TemplateBody": "Resources:
+  "TemplateBody": "Parameters:
+  S3BucketName:
+    Description: \\"S3 Bucket name\\"
+    Type: String
+  DummyParam:
+    Description: \\"Dummy parameter\\"
+    Type: String
+
+Resources:
   HelloBucket:
     Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub \\"\${AWS::StackName}-\${S3BucketName}\\"
 ",
 }
 `;

@@ -1,0 +1,4 @@
+{
+  "S3BucketName": "from-object-params",
+  "DummyParam": "dummy-param"
+}
