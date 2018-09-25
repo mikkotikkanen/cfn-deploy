@@ -7,7 +7,7 @@ Parameters:
     Type: String
 
 Resources:
-  HelloBucket:
+  S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "${AWS::StackName}-${S3BucketName}"
