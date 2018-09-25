@@ -114,16 +114,16 @@ See [options](#options) for more details.
 
 ### Available events
 
-| Event                  | When it fires                                |
-| ---------------------- | -------------------------------------------- |
-| LOADING_FILES          | Template & parameters files are being loaded |
-| VALIDATING_TEMPLATE    | Template is being validated                  |
-| VALIDATING_STACKSTATE  | Stack state is being validated               |
-| CREATING_CHANGESET     | Changeset is being created                   |
-| EXECUTING_CHANGESET    | Changeset is being executed                  |
-| COMPLETE               | Deployment is complete                       |
-| ERROR                  | Deployment errored                           |
-| FINALLY                | All work finished (errored or complete)      |
+| Event                        | When it fires                                  |
+| ---------------------------- | ---------------------------------------------- |
+| LOADING_FILES                | Template & parameters files are being loaded   |
+| VALIDATING_TEMPLATE          | Template is being validated                    |
+| VALIDATING_STACKSTATE        | Stack state is being validated                 |
+| CREATING_CHANGESET           | Changeset is being created                     |
+| EXECUTING_CHANGESET          | Changeset is being executed                    |
+| COMPLETE                     | Deployment is complete                         |
+| ERROR                        | Deployment errored                             |
+| FINALLY                      | All work finished (errored or complete)        |
 
 
 
