@@ -68,7 +68,7 @@ describe('cfn-deploy', () => {
     const events = lib({
       region: 'us-east-1',
       stackName: 'new-stack',
-      template: './tests/templates/simple-s3-template.yaml',
+      template: './tests/templates/simple-template.yaml',
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {

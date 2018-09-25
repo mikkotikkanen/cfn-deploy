@@ -37,7 +37,7 @@ describe('CloudFormation.validateTemplate', () => {
     lib({
       region: 'us-east-1',
       stackName: 'test-stack',
-      template: './tests/templates/simple-s3-template.yaml',
+      template: './tests/templates/simple-template.yaml',
     }).on('ERROR', (err) => {
       expect(err.message).toMatchSnapshot();
       done();
