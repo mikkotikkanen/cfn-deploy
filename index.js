@@ -28,6 +28,7 @@ module.exports = (args) => {
   // Start with empty promise so that there is no immediate call and event emitter returns first
   new Promise(resolve => resolve())
     // Load files
+    .then(() => events.emit('LOADING_FILES'))
     .then(() => loadTemplateFile(args.template, events))
     .then((newTemplateString) => { templateString = newTemplateString; })
     .then(() => loadParametersFiles(args.parameters, events))

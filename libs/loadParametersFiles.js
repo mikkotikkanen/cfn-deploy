@@ -40,9 +40,7 @@ const loadParametersFile = filepath => new Promise((resolve, reject) => {
 });
 
 
-module.exports = (filepaths, events) => new Promise((resolve, reject) => { // eslint-disable-line max-len
-  events.emit('LOADING_PARAMETERS');
-
+module.exports = filepaths => new Promise((resolve, reject) => { // eslint-disable-line max-len
   // If no path is defined, just return empty object
   if (!filepaths) {
     return resolve([]);
