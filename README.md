@@ -150,6 +150,11 @@ AWS region
 
 AWS IAM capabilities
 
+Valid values:
+
+- CAPABILITY_IAM
+- CAPABILITY_NAMED_IAM
+
 ## profile
 
 Load profile from shared credentials file (in `.aws\credentials`)
