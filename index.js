@@ -1,6 +1,6 @@
 const { EventEmitter } = require('events');
 const AWS = require('aws-sdk');
-const loadFiles = require('./libs/loadFiles');
+const loadTemplateFile = require('./libs/loadTemplateFile');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
 const validateStackState = require('./libs/cloudformation/validateStackState');
 const createChangeSet = require('./libs/cloudformation/createChangeSet');
@@ -26,7 +26,7 @@ module.exports = (args) => {
   // Start with empty promise so that there is no immediate call and event emitter returns first
   new Promise(resolve => resolve())
     // Load files
-    .then(() => loadFiles(args.template, args.parameters, events))
+    .then(() => loadTemplateFile(args.template, args.parameters, events))
 
     // Validate template
     .then((templateBodyString) => {
