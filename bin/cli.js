@@ -12,7 +12,10 @@ yargs
     describe: 'The name associated with the stack',
   })
   .option('template', {
-    describe: 'Path or url to template file',
+    describe: 'Path to template file',
+  })
+  .option('parameters', {
+    describe: 'Path to parameter file (.json)',
   })
   .option('region', {
     describe: 'AWS region',
