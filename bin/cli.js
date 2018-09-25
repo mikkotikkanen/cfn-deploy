@@ -38,6 +38,14 @@ yargs
 yargs.getOptions().boolean.splice(-2);
 
 
+// Set update notifier
+updateNotifier({
+  pkg: pckg,
+  updateCheckInterval: 0,
+  isGlobal: isInstalledGlobally,
+}).notify();
+
+
 // Call the library with cli arguments
 const args = yargs.argv;
 const events = index(args);
@@ -45,13 +53,6 @@ const events = index(args);
 // Start logger
 defaultLogger(args, events);
 
-
-// Set update notifier
-updateNotifier({
-  pkg: pckg,
-  updateCheckInterval: 0,
-  isGlobal: isInstalledGlobally,
-}).notify();
 
 // Exit process properly on error
 let hasErrored = false;
