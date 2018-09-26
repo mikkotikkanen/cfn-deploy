@@ -3,13 +3,13 @@
 Simple utility for AWS CloudFormation deployments
 
 
-## Motivation
+<!-- ## Motivation
 - Serverless framework seems like overkill just for CloudFormation deployments
 - Modules like aws-cfm-utils do weird stuff like ASG toggling which is not kosher
 - `aws-cli cloudformation deploy` doesn't allow passing CloudFormation parameter files
 - Need for full spectrum of use in `package.json` scripts
 - Need for fully programmatic & customized use in other modules
-
+ -->
 
 
 # Configuration
@@ -82,12 +82,6 @@ npm install cfn-deploy
 
 For programmatic use, cfn-deploy returns event stream on initialization, which allows for complete
 customization, down to event logging.
-
-Install as dependency:
-
-```bash
-npm install cfn-deploy
-```
 
 Write your application:
 
