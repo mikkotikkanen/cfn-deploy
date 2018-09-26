@@ -37,8 +37,8 @@
   },
   "scripts": {
     "test": "npm-run-all test:*",
-    "test:system": "jest",
     "test:code": "eslint .",
+    "test:system": "jest",
     "preversion": "npm test"
   }
 }
