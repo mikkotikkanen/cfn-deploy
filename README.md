@@ -93,13 +93,13 @@ const eventStream = cfnDeploy({
   template: 'cfn/cfn-stack.yaml',
 });
 
-const eventStream.on('EXECUTING_CHANGESET', () => {
+eventStream.on('EXECUTING_CHANGESET', () => {
   console.log('Doing the thing...');
 });
-const eventStream.on('COMPLETE', () => {
+eventStream.on('COMPLETE', () => {
   console.log('The thing is complete.');
 });
-const eventStream.on('ERROR', (err) => {
+eventStream.on('ERROR', (err) => {
   console.log('Aw. Dang. The thing errored.', err.message);
 });
 ```
