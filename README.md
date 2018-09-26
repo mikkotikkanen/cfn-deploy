@@ -177,13 +177,13 @@ Valid .json files:
 }
 ```
 
-### Multiple parameters files (command line/package.json scripts)
+__Multiple parameters files (command line/package.json scripts)__
 
 ```bash
 cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
 ```
 
-### Multiple parameters files (programmatic use)
+__Multiple parameters files (programmatic use)__
 
 ```javascript
 parameters: ['./cfn/params1.json', './cfn/params2.json'],
