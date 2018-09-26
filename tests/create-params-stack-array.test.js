@@ -4,22 +4,30 @@ const lib = require('..');
 
 describe('cfn-deploy', () => {
   beforeAll(() => {
+    let isChangeSetCreated = false;
+
     AWS.mock('CloudFormation', 'validateTemplate', (params, callback) => {
       expect(params).toMatchSnapshot();
       callback(null, {});
     });
     AWS.mock('CloudFormation', 'describeStacks', (params, callback) => {
       expect(params).toMatchSnapshot();
-      callback(null, {
-        Stacks: [
-          {
-            StackStatus: 'UPDATE_COMPLETE',
-          },
-        ],
-      });
+      if (!isChangeSetCreated) {
+        callback();
+      } else {
+        // Stack exists once changeset has been created
+        callback(null, {
+          Stacks: [
+            {
+              StackStatus: 'REVIEW_IN_PROGRESS',
+            },
+          ],
+        });
+      }
     });
     AWS.mock('CloudFormation', 'createChangeSet', (params, callback) => {
       expect(params).toMatchSnapshot();
+      isChangeSetCreated = true;
       callback(null, {
         Id: 'fake-changeset-id',
       });
@@ -35,8 +43,7 @@ describe('cfn-deploy', () => {
       callback();
     });
     AWS.mock('CloudFormation', 'deleteChangeSet', (params, callback) => {
-      expect(params).toMatchSnapshot();
-      callback();
+      callback(new Error('SHOULD_NOT_BE_CALLED'));
     });
     AWS.mock('CloudFormation', 'waitFor', (event, params, callback) => {
       if (event === 'changeSetCreateComplete') {
@@ -44,12 +51,12 @@ describe('cfn-deploy', () => {
         callback(null, {
           ChangeSetId: 'fake-changeset-id',
         });
-      } else if (event === 'stackUpdateComplete') {
+      } else if (event === 'stackCreateComplete') {
         expect(params).toMatchSnapshot();
         callback(null, {
           Stacks: [
             {
-              StackStatus: 'UPDATE_COMPLETE',
+              StackStatus: 'CREATE_COMPLETE',
             },
           ],
         });
@@ -57,11 +64,12 @@ describe('cfn-deploy', () => {
     });
   });
 
-  it('should successfully update existing stack', (done) => {
+  it('should successfully create new stack', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'existing-stack',
-      template: './tests/templates/simple-s3-template.yaml',
+      stackName: 'new-stack',
+      template: './tests/templates/params-template.yaml',
+      parameters: './tests/params/array-params.json',
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {

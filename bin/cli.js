@@ -12,7 +12,10 @@ yargs
     describe: 'The name associated with the stack',
   })
   .option('template', {
-    describe: 'Path or url to template file',
+    describe: 'Path to template file',
+  })
+  .option('parameters', {
+    describe: 'Path(s) to parameter file(s) (.json)',
   })
   .option('region', {
     describe: 'AWS region',
@@ -38,6 +41,14 @@ yargs
 yargs.getOptions().boolean.splice(-2);
 
 
+// Set update notifier
+updateNotifier({
+  pkg: pckg,
+  updateCheckInterval: 0,
+  isGlobal: isInstalledGlobally,
+}).notify();
+
+
 // Call the library with cli arguments
 const args = yargs.argv;
 const events = index(args);
@@ -45,13 +56,6 @@ const events = index(args);
 // Start logger
 defaultLogger(args, events);
 
-
-// Set update notifier
-updateNotifier({
-  pkg: pckg,
-  updateCheckInterval: 0,
-  isGlobal: isInstalledGlobally,
-}).notify();
 
 // Exit process properly on error
 let hasErrored = false;

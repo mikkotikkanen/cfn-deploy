@@ -34,11 +34,12 @@ describe('CloudFormation.validateTemplate', () => {
   });
 
   it('should error on invalid stack state', (done) => {
-    lib({
+    const events = lib({
       region: 'us-east-1',
       stackName: 'test-stack',
-      template: './tests/templates/simple-s3-template.yaml',
-    }).on('ERROR', (err) => {
+      template: './tests/templates/simple-template.yaml',
+    });
+    events.on('ERROR', (err) => {
       expect(err.message).toMatchSnapshot();
       done();
     });

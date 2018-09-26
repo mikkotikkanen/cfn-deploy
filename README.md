@@ -11,7 +11,6 @@ Simple utility for AWS CloudFormation deployments
 - Need for fully programmatic & customized use in other modules
 
 
-
 # Configuration
 
 cfn-deploy will by default use any locally pre-configured AWS account. You can pre-configure your
@@ -39,7 +38,7 @@ npm install cfn-deploy -g
 ## Usage
 
 ```bash
-cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml
+cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml
 ```
 
 See [options](#options) for more details.
@@ -61,7 +60,7 @@ Add deploy script to `package.json`:
 ```json
 {
   "scripts": {
-    "deploy": "cfn-deploy --stack-name=fancy-stack --template=cfn/cfn-stack.yaml"
+    "deploy": "cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml"
   }
 }
 ```
@@ -83,12 +82,6 @@ npm install cfn-deploy
 For programmatic use, cfn-deploy returns event stream on initialization, which allows for complete
 customization, down to event logging.
 
-Install as dependency:
-
-```bash
-npm install cfn-deploy
-```
-
 Write your application:
 
 ```javascript
@@ -99,13 +92,13 @@ const eventStream = cfnDeploy({
   template: 'cfn/cfn-stack.yaml',
 });
 
-const eventStream.on('EXECUTING_CHANGESET', () => {
+eventStream.on('EXECUTING_CHANGESET', () => {
   console.log('Doing the thing...');
 });
-const eventStream.on('COMPLETE', () => {
+eventStream.on('COMPLETE', () => {
   console.log('The thing is complete.');
 });
-const eventStream.on('ERROR', (err) => {
+eventStream.on('ERROR', (err) => {
   console.log('Aw. Dang. The thing errored.', err.message);
 });
 ```
@@ -114,16 +107,16 @@ See [options](#options) for more details.
 
 ### Available events
 
-| Event                  | When it fires                                |
-| ---------------------- | -------------------------------------------- |
-| LOADING_FILES          | Template & parameters files are being loaded |
-| VALIDATING_TEMPLATE    | Template is being validated                  |
-| VALIDATING_STACKSTATE  | Stack state is being validated               |
-| CREATING_CHANGESET     | Changeset is being created                   |
-| EXECUTING_CHANGESET    | Changeset is being executed                  |
-| COMPLETE               | Deployment is complete                       |
-| ERROR                  | Deployment errored                           |
-| FINALLY                | All work finished (errored or complete)      |
+| Event                        | When it fires                                  |
+| ---------------------------- | ---------------------------------------------- |
+| LOADING_FILES                | Template & parameters files are being loaded   |
+| VALIDATING_TEMPLATE          | Template is being validated                    |
+| VALIDATING_STACKSTATE        | Stack state is being validated                 |
+| CREATING_CHANGESET           | Changeset is being created                     |
+| EXECUTING_CHANGESET          | Changeset is being executed                    |
+| COMPLETE                     | Deployment is complete                         |
+| ERROR                        | Deployment errored                             |
+| FINALLY                      | All work finished (errored or complete)        |
 
 
 
@@ -132,13 +125,70 @@ See [options](#options) for more details.
 Command line and package.json options are same, programmatic configuration uses camelCase for
 options (if different, written in parenthesis).
 
-## stack-name (programmatic: stackName)
+## stack-name
 
 The name associated with the stack
 
+__Note:__ In programmatic use: `stackName`
+
 ## template
 
-Path or url to template file
+Path to template file
+
+## parameters
+
+Path to parameters file (.json). Multiple parameters options are allowed and values are combined
+in the order they are defined, with values from latter overwriting previous
+
+Valid .json files:
+
+- `aws-cli cloudformation` type:
+
+```json
+[
+  {
+    "ParameterKey": "FirstParam",
+    "ParameterValue": "first-param-value"
+  },
+  {
+    "ParameterKey": "SecondParam",
+    "ParameterValue": "second-param-value"
+  }
+]
+```
+
+- AWS CodePipeline parameters type:
+
+```json
+{
+  "Parameters": {
+    "FirstParam": "first-param-value",
+    "SecondParam": "second-param-value"
+  }
+}
+```
+
+- Plain JSON object
+
+```json
+{
+  "FirstParam": "first-param-value",
+  "SecondParam": "second-param-value"
+}
+```
+
+### Multiple parameters files (command line/package.json scripts)
+
+```bash
+cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
+```
+
+### Multiple parameters files (programmatic use)
+
+```javascript
+parameters: ['./cfn/params1.json', './cfn/params2.json'],
+```
+
 
 ## region
 
@@ -148,22 +198,35 @@ AWS region
 
 AWS IAM capabilities
 
+Valid values:
+
+- CAPABILITY_IAM
+- CAPABILITY_NAMED_IAM
+
 ## profile
 
-Load profile from shared credentials file
+Load profile from shared credentials file (in `.aws\credentials`)
 
-## access-key (programmatic: accessKey)
+## access-key
 
 AWS Access Key
 
-## secret-key (programmatic: secretKey)
+__Note:__ In programmatic use: `accessKey`
+
+## secret-key
 
 AWS Secret Access Key
 
-## version (only for command line/package.json)
+__Note:__ In programmatic use: `secretKey`
+
+## version
 
 Show version number
 
-## help (only for command line/package.json)
+__Note:__ Only for command line or package.json script use
+
+## help
 
 Show help
+
+__Note:__ Only for command line or package.json script use

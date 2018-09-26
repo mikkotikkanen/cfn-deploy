@@ -1,0 +1,13 @@
+Parameters:
+  S3BucketName:
+    Description: "S3 Bucket name"
+    Type: String
+  DummyParam:
+    Description: "Dummy parameter"
+    Type: String
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${AWS::StackName}-${S3BucketName}"

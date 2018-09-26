@@ -1,6 +1,7 @@
 const { EventEmitter } = require('events');
 const AWS = require('aws-sdk');
 const loadTemplateFile = require('./libs/loadTemplateFile');
+const loadParametersFiles = require('./libs/loadParametersFiles');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
 const validateStackState = require('./libs/cloudformation/validateStackState');
 const createChangeSet = require('./libs/cloudformation/createChangeSet');
@@ -10,7 +11,8 @@ const deleteChangeSet = require('./libs/cloudformation/deleteChangeSet');
 
 module.exports = (args) => {
   const events = new EventEmitter();
-  let templateBody;
+  let templateString;
+  let paramsObj;
 
   // Set AWS config
   if (args.profile) {
@@ -26,20 +28,21 @@ module.exports = (args) => {
   // Start with empty promise so that there is no immediate call and event emitter returns first
   new Promise(resolve => resolve())
     // Load files
-    .then(() => loadTemplateFile(args.template, args.parameters, events))
+    .then(() => events.emit('LOADING_FILES'))
+    .then(() => loadTemplateFile(args.template, events))
+    .then((newTemplateString) => { templateString = newTemplateString; })
+    .then(() => loadParametersFiles(args.parameters, events))
+    .then((newParamsObj) => { paramsObj = newParamsObj; })
 
     // Validate template
-    .then((templateBodyString) => {
-      templateBody = templateBodyString;
-      return validateTemplate(templateBody, events);
-    })
+    .then(() => validateTemplate(templateString, events))
 
     // Make sure stack is ready
     .then(() => validateStackState(args.stackName, events))
     .then(() => deleteChangeSet(args.stackName, 'cfn-deploy'))
 
     // Deploy template
-    .then(() => createChangeSet(args, templateBody, {}, events))
+    .then(() => createChangeSet(args, templateString, paramsObj, events))
     .then(changesetData => executeChangeSet(args.stackName, changesetData.ChangeSetId, events))
 
     // All done
