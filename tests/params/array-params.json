@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "S3BucketName",
-    "ParameterValue": "from-array-params"
+    "ParameterValue": "from-array-params-file"
   },
   {
     "ParameterKey": "DummyParam",

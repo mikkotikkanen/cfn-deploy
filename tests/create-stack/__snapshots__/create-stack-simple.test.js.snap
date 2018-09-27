@@ -2,6 +2,21 @@
 
 exports[`cfn-deploy should successfully create new stack 1`] = `
 Object {
+  "Capabilities": undefined,
+  "ChangeSetName": "cfn-deploy",
+  "ChangeSetType": "CREATE",
+  "Description": "Created with cfn-deploy",
+  "Parameters": Array [],
+  "StackName": "new-stack",
+  "TemplateBody": "Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 2`] = `
+Object {
   "type": "UPDATE",
 }
 `;

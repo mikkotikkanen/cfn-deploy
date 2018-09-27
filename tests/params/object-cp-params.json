@@ -1,6 +1,6 @@
 {
   "Parameters": {
-    "S3BucketName": "from-object-cp-params",
+    "S3BucketName": "from-object-cp-params-file",
     "DummyParam": "dummy-param"
   }
 }

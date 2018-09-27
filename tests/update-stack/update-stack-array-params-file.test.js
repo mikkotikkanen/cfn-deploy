@@ -17,6 +17,7 @@ describe('cfn-deploy', () => {
       });
     });
     AWS.mock('CloudFormation', 'createChangeSet', (params, callback) => {
+      expect(params).toMatchSnapshot();
       callback(null, {
         Id: 'fake-changeset-id',
       });
