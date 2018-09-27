@@ -3,6 +3,7 @@ const AWS = require('aws-sdk');
 const loadTemplateFile = require('./libs/loadTemplateFile');
 const loadParametersFiles = require('./libs/loadParametersFiles');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
+const describeStack = require('./libs/cloudformation/describeStack');
 const validateStackState = require('./libs/cloudformation/validateStackState');
 const createChangeSet = require('./libs/cloudformation/createChangeSet');
 const executeChangeSet = require('./libs/cloudformation/executeChangeSet');
@@ -45,9 +46,12 @@ module.exports = (args) => {
     .then(() => createChangeSet(args, templateString, paramsObj, events))
     .then(changesetData => executeChangeSet(args.stackName, changesetData.ChangeSetId, events))
 
+    // Get new stack status
+    .then(() => describeStack(args.stackName))
+
     // All done
-    .then((deployData) => {
-      const type = (deployData.Stacks[0].StackStatus === 'CREATE_COMPLETE' ? 'CREATE' : 'UPDATE');
+    .then((stackData) => {
+      const type = (stackData.StackStatus === 'CREATE_COMPLETE' ? 'CREATE' : 'UPDATE');
       events.emit('COMPLETE', { type });
     })
 
