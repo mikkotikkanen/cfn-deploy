@@ -7,11 +7,9 @@ describe('cfn-deploy', () => {
     let isChangeSetCreated = false;
 
     AWS.mock('CloudFormation', 'validateTemplate', (params, callback) => {
-      expect(params).toMatchSnapshot();
       callback(null, {});
     });
     AWS.mock('CloudFormation', 'describeStacks', (params, callback) => {
-      expect(params).toMatchSnapshot();
       if (!isChangeSetCreated) {
         callback();
       } else {
@@ -26,20 +24,17 @@ describe('cfn-deploy', () => {
       }
     });
     AWS.mock('CloudFormation', 'createChangeSet', (params, callback) => {
-      expect(params).toMatchSnapshot();
       isChangeSetCreated = true;
       callback(null, {
         Id: 'fake-changeset-id',
       });
     });
     AWS.mock('CloudFormation', 'describeChangeSet', (params, callback) => {
-      // No snapshot matching since describe is used with different params
       callback(null, {
         ChangeSetId: 'fake-changeset-id',
       });
     });
     AWS.mock('CloudFormation', 'executeChangeSet', (params, callback) => {
-      expect(params).toMatchSnapshot();
       callback();
     });
     AWS.mock('CloudFormation', 'deleteChangeSet', (params, callback) => {
@@ -47,12 +42,10 @@ describe('cfn-deploy', () => {
     });
     AWS.mock('CloudFormation', 'waitFor', (event, params, callback) => {
       if (event === 'changeSetCreateComplete') {
-        expect(params).toMatchSnapshot();
         callback(null, {
           ChangeSetId: 'fake-changeset-id',
         });
       } else if (event === 'stackCreateComplete') {
-        expect(params).toMatchSnapshot();
         callback(null, {
           Stacks: [
             {

@@ -16,21 +16,6 @@ describe('CloudFormation.validateTemplate', () => {
         ],
       });
     });
-    // AWS.mock('CloudFormation', 'createChangeSet', (params, callback) => {
-    //   callback(new Error('INVALID_TEMPLATE'));
-    // });
-    // AWS.mock('CloudFormation', 'describeChangeSet', (params, callback) => {
-    //   callback(new Error('INVALID_TEMPLATE'));
-    // });
-    // AWS.mock('CloudFormation', 'executeChangeSet', (params, callback) => {
-    //   callback(new Error('INVALID_TEMPLATE'));
-    // });
-    // AWS.mock('CloudFormation', 'deleteChangeSet', (params, callback) => {
-    //   callback(new Error('INVALID_TEMPLATE'));
-    // });
-    // AWS.mock('CloudFormation', 'waitFor', (params, callback) => {
-    //   callback(new Error('INVALID_TEMPLATE'));
-    // });
   });
 
   it('should error on invalid stack state', (done) => {
