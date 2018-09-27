@@ -27,7 +27,7 @@ recommended as they A) can end to version control or B) will stay readable in lo
 
 
 
-# Command line use
+# Command line (cli) use
 
 ## Install
 
@@ -55,7 +55,7 @@ npm install cfn-deploy --save-dev
 
 ## Usage
 
-Add deploy script to `package.json`:
+Add the cli script to `package.json`:
 
 ```json
 {
@@ -65,11 +65,11 @@ Add deploy script to `package.json`:
 }
 ```
 
-See [options](#options) for more details.
+Options are same as for cli.
 
 
 
-# Programmatic use
+# API use
 
 ## Install
 
@@ -122,14 +122,13 @@ See [options](#options) for more details.
 
 # Options
 
-Command line and package.json options are same, programmatic configuration uses camelCase for
-options (if different, written in parenthesis).
+Command line and package.json options are same, API configuration uses camelCase for options.
 
 ## stack-name
 
 The name associated with the stack
 
-__Note:__ In programmatic use: `stackName`
+In API calls, use camelCase (`stackName`)
 
 ## template
 
@@ -137,12 +136,19 @@ Path to template file
 
 ## parameters
 
-Path to parameters file (.json). Multiple parameters options are allowed and values are combined
-in the order they are defined, with values from latter overwriting previous
+Parameters to pass for the CloudFormation template. Multiple parameters options are allowed and
+values are combined in the order they are defined, with values from latter overwriting previous.
+
+Valid values:
+
+- Path to .json file
+- String object (`FirstParam:first-param-value,SecondParam:second-param-value`)
+- Plain JavaScript objects (API only)
+
 
 Valid .json files:
 
-- `aws-cli cloudformation` type:
+- `aws-cli cloudformation` type JSON file:
 
 ```json
 [
@@ -157,7 +163,7 @@ Valid .json files:
 ]
 ```
 
-- AWS CodePipeline parameters type:
+- AWS CodePipeline parameters type JSON file:
 
 ```json
 {
@@ -168,7 +174,7 @@ Valid .json files:
 }
 ```
 
-- Plain JSON object
+- Plain JSON object file
 
 ```json
 {
@@ -177,13 +183,17 @@ Valid .json files:
 }
 ```
 
-### Multiple parameters files (command line/package.json scripts)
+__Multiple parameter sets (command line/package.json scripts)__
+
+Pass multiple parameter sets as repeated `--parameters` params
 
 ```bash
 cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
 ```
 
-### Multiple parameters files (programmatic use)
+__Multiple parameter sets (API only)__
+
+Pass multiple parameter sets as an array
 
 ```javascript
 parameters: ['./cfn/params1.json', './cfn/params2.json'],
@@ -209,15 +219,15 @@ Load profile from shared credentials file (in `.aws\credentials`)
 
 ## access-key
 
-AWS Access Key
+AWS Access Key.
 
-__Note:__ In programmatic use: `accessKey`
+In API calls, use camelCase (`accessKey`)
 
 ## secret-key
 
 AWS Secret Access Key
 
-__Note:__ In programmatic use: `secretKey`
+In API calls, use camelCase (`secretKey`)
 
 ## version
 
