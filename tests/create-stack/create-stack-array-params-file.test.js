@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk-mock');
-const lib = require('..');
+const lib = require('../..');
 
 
 describe('cfn-deploy', () => {
@@ -62,7 +62,7 @@ describe('cfn-deploy', () => {
       region: 'us-east-1',
       stackName: 'new-stack',
       template: './tests/templates/params-template.yaml',
-      parameters: './tests/params/object-params.json',
+      parameters: './tests/params/array-params.json',
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {
