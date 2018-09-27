@@ -1,7 +1,7 @@
 const { EventEmitter } = require('events');
 const AWS = require('aws-sdk');
 const loadTemplateFile = require('./libs/loadTemplateFile');
-const loadParametersFiles = require('./libs/loadParametersFiles');
+const parseParameters = require('./libs/parseParameters');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
 const describeStack = require('./libs/cloudformation/describeStack');
 const validateStackState = require('./libs/cloudformation/validateStackState');
@@ -32,7 +32,7 @@ module.exports = (args) => {
     .then(() => events.emit('LOADING_FILES'))
     .then(() => loadTemplateFile(args.template, events))
     .then((newTemplateString) => { templateString = newTemplateString; })
-    .then(() => loadParametersFiles(args.parameters, events))
+    .then(() => parseParameters(args.parameters, events))
     .then((newParamsObj) => { paramsObj = newParamsObj; })
 
     // Validate template
