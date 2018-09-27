@@ -4,89 +4,56 @@ const fs = require('fs');
 /**
  * Load parameters file
  *
- * @param {string|Object} params List of parameters (path to file, string list or plain object)
+ * @param {string} filepath File path to parameters file
  */
-const parseParameters = params => new Promise((resolve, reject) => {
-  let paramsObj;
-
-  // Handle different types
-  if (!Array.isArray(params) && typeof params === 'object') {
-    // Parameter is plain object, pass on as is
-    paramsObj = params;
-  } else if (typeof params === 'string' && params.indexOf(':') !== -1) {
-    // Parameter is "key1:value1, key2:value2" string, reduce to object
-    paramsObj = params.split(',').reduce((obj, param) => {
-      const newObj = obj;
-      const [key, value] = param.trim().split(':').map(string => string.trim());
-      newObj[key] = value;
-      return newObj;
-    }, {});
-  } else if (typeof params === 'string' && params.indexOf(':') === -1) {
-    // Parameter is a path, load the file and try to parse it
-    const paramsString = fs.readFileSync(params, { encoding: 'utf-8' });
-    try {
-      paramsObj = JSON.parse(paramsString);
-    } catch (err) {
-      reject(new Error('Invalid parameter file.'));
-    }
+const loadParametersFile = filepath => new Promise((resolve, reject) => {
+  // Load file
+  const paramsString = fs.readFileSync(filepath, { encoding: 'utf-8' });
+  // Parse file
+  let params;
+  try {
+    params = JSON.parse(paramsString);
+  } catch (err) {
+    reject(new Error('Invalid parameter file.'));
   }
-
-
-  /**
-   * Parse parameters object
-   */
-  // If it's already array, make sure it has correct keys
-  if (Array.isArray(paramsObj) && !paramsObj[0].ParameterKey) {
+  // If it's already array, make sure valid
+  if (Array.isArray(params) && (!params[0].ParameterKey || !params[0].ParameterValue)) {
     return reject(new Error('Invalid parameters array.'));
   }
-
-  /**
-   * If it's CloudFormation Template Configuration (file), standardize to plain parameters object
-   *
-   * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-cfn-artifacts.html#d0e10167
-   */
-  if (!Array.isArray(paramsObj) && typeof paramsObj === 'object' && paramsObj.Parameters) {
-    paramsObj = paramsObj.Parameters;
+  // Standardize CodePipeline Parameter object to plain object
+  if (!Array.isArray(params) && typeof params === 'object' && params.Parameters) {
+    params = params.Parameters;
   }
-
-  /**
-   * Convert object to CloudFormation parameters array
-   *
-   * https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html
-   */
-  if (!Array.isArray(paramsObj) && typeof paramsObj === 'object') {
-    paramsObj = Object.keys(paramsObj).map(key => ({
+  // If it's object, convert to array
+  if (!Array.isArray(params) && typeof params === 'object') {
+    params = Object.keys(params).map(key => ({
       ParameterKey: key,
-      ParameterValue: paramsObj[key],
+      ParameterValue: params[key],
     }));
   }
-
-  return resolve(paramsObj);
+  return resolve(params);
 });
 
-
-module.exports = paramSets => new Promise((resolve, reject) => { // eslint-disable-line max-len
-  // If no params are defined, resolve to empty array
-  if (!paramSets) {
+module.exports = filepaths => new Promise((resolve, reject) => { // eslint-disable-line max-len
+  // If no path is defined, just return empty object
+  if (!filepaths) {
     return resolve([]);
   }
-
-  // Make sure what we have is an array (of parameter sets)
-  let paramSetsArr = paramSets;
-  if (!Array.isArray(paramSetsArr)) {
-    paramSetsArr = [paramSetsArr];
+  // Make sure it's array
+  let filepathsArr = filepaths;
+  if (!Array.isArray(filepathsArr)) {
+    filepathsArr = [filepathsArr];
   }
-
-  // Handle all parameters
+  // Handle all filepaths
   return Promise
-    .all(paramSetsArr.map(filepath => parseParameters(filepath)))
-    .then((paramArrays) => {
+    .all(filepathsArr.map(filepath => loadParametersFile(filepath)))
+    .then((paramsArr) => {
       // Combine all parameter arrays to one
-      let paramsArr = [];
-      paramArrays.forEach((arr) => {
-        paramsArr = paramsArr.concat(arr);
+      let allParams = [];
+      paramsArr.forEach((arr) => {
+        allParams = allParams.concat(arr);
       });
-      return paramsArr;
+      return allParams;
     })
     .then(resolve)
     .catch(reject);
