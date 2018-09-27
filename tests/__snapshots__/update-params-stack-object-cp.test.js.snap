@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cfn-deploy should successfully update existing stack 1`] = `
+Object {
+  "type": "UPDATE",
+}
+`;
