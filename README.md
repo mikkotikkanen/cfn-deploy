@@ -142,8 +142,8 @@ values are combined in the order they are defined, with values from latter overw
 Valid values:
 
 - Path to .json file
-- String object (`FirstParam:first-param-value,SecondParam:second-param-value`)
-- Plain JavaScript objects (API only)
+- String (`ParameterKey=FirstParam,ParameterValue=first-param-value ParameterKey=SecondParam,ParameterValue=second-param-value`)
+- Plain JavaScript object (API only)
 
 
 Valid .json files:
@@ -183,22 +183,30 @@ Valid .json files:
 }
 ```
 
-__Multiple parameter sets (command line/package.json scripts)__
+- Plain JavaScript object through API
 
-Pass multiple parameter sets as repeated `--parameters` params
+```javascript
+parameters: {
+  FirstParam: 'first-param-value',
+  SecondParam: 'second-param-value',
+},
+```
+
+__Multiple parameter options__
+
+Pass multiple parameter options as repeated `--parameters` params
 
 ```bash
 cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
 ```
 
-__Multiple parameter sets (API only)__
-
-Pass multiple parameter sets as an array
+For API, you pass multiple parameter options as an array
 
 ```javascript
 parameters: ['./cfn/params1.json', './cfn/params2.json'],
 ```
 
+You can also mix and match different types of parameters
 
 ## region
 

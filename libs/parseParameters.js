@@ -13,15 +13,22 @@ const parseParameters = params => new Promise((resolve, reject) => {
   if (!Array.isArray(params) && typeof params === 'object') {
     // Parameter is plain object, pass on as is
     paramsObj = params;
-  } else if (typeof params === 'string' && params.indexOf(':') !== -1) {
-    // Parameter is "key1:value1, key2:value2" string, reduce to object
-    paramsObj = params.split(',').reduce((obj, param) => {
-      const newObj = obj;
-      const [key, value] = param.trim().split(':').map(string => string.trim());
-      newObj[key] = value;
-      return newObj;
-    }, {});
-  } else if (typeof params === 'string' && params.indexOf(':') === -1) {
+  } else if (typeof params === 'string' && params.indexOf('ParameterKey=') !== -1) {
+    // Parameter is "ParameterKey=S3BucketName,ParameterValue=from-string-params" string
+    let key;
+    let value;
+    params.split(',').forEach((paramPart) => {
+      if (paramPart.indexOf('ParameterKey=') !== -1) {
+        key = paramPart.split('=')[1].trim();
+      } else if (paramPart.indexOf('ParameterValue=') !== -1) {
+        value = paramPart.split('=')[1].trim();
+      }
+    });
+
+    // Set as object
+    paramsObj = {};
+    paramsObj[key] = value;
+  } else if (typeof params === 'string' && params.indexOf('ParameterKey=') === -1) {
     // Parameter is a path, load the file and try to parse it
     const paramsString = fs.readFileSync(params, { encoding: 'utf-8' });
     try {

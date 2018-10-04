@@ -55,7 +55,7 @@ describe('cfn-deploy', () => {
       region: 'us-east-1',
       stackName: 'existing-stack',
       template: './tests/templates/params-template.yaml',
-      parameters: 'S3BucketName:from-string-params, DummyParam:dummy-param',
+      parameters: ['ParameterKey=S3BucketName,ParameterValue=from-string-params', 'ParameterKey=DummyParam,ParameterValue=dummy-param'],
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {
