@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk-mock');
 const lib = require('../..');
+const stringParams = require('../params/string-params.json');
 
 
 describe('cfn-deploy', () => {
@@ -55,7 +56,7 @@ describe('cfn-deploy', () => {
       region: 'us-east-1',
       stackName: 'existing-stack',
       template: './tests/templates/params-template.yaml',
-      parameters: ['ParameterKey=S3BucketName,ParameterValue=from-string-params', 'ParameterKey=DummyParam,ParameterValue=dummy-param'],
+      parameters: stringParams,
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {

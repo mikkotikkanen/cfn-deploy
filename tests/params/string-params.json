@@ -1,0 +1,6 @@
+[
+  "ParameterKey=S3BucketName,ParameterValue=from-string-params-file",
+  "ParameterKey=DummyParam,ParameterValue=dummy-param",
+  "ParameterKey=OverwritableParam,ParameterValue=from-string-params-file",
+  "ParameterKey=ParamSource,ParameterValue=string-params.json"
+]

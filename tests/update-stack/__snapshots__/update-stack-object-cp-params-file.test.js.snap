@@ -15,6 +15,14 @@ Object {
       "ParameterKey": "DummyParam",
       "ParameterValue": "dummy-param",
     },
+    Object {
+      "ParameterKey": "OverwritableParam",
+      "ParameterValue": "from-object-cp-params-file",
+    },
+    Object {
+      "ParameterKey": "ParamSource",
+      "ParameterValue": "object-cp-params.json",
+    },
   ],
   "StackName": "existing-stack",
   "TemplateBody": "Parameters:
