@@ -53,13 +53,14 @@ module.exports = (args) => {
     .then((stackData) => {
       const type = (stackData.StackStatus === 'CREATE_COMPLETE' ? 'CREATE' : 'UPDATE');
       events.emit('COMPLETE', { type });
+      events.emit('FINALLY');
     })
 
     // Handle errors
-    .catch(err => events.emit('ERROR', err))
-
-    // Trigger finally event
-    .finally(() => events.emit('FINALLY'));
+    .catch((err) => {
+      events.emit('ERROR', err);
+      events.emit('FINALLY');
+    });
 
   return events;
 };
