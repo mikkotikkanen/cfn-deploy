@@ -54,7 +54,6 @@ updateNotifier({
 
 // Call the library with cli arguments
 const args = yargs.argv;
-console.log(args);
 const events = index(args);
 
 // Start logger
