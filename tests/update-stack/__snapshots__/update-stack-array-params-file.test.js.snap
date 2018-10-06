@@ -32,6 +32,12 @@ Object {
   DummyParam:
     Description: \\"Dummy parameter\\"
     Type: String
+  OverwritableParam:
+    Description: \\"Parameter for testing overrides\\"
+    Type: String
+  ParamSource:
+    Description: \\"Source where the parameters came from\\"
+    Type: String
 
 Resources:
   S3Bucket:
