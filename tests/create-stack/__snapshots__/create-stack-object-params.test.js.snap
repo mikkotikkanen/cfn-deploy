@@ -15,6 +15,14 @@ Object {
       "ParameterKey": "DummyParam",
       "ParameterValue": "dummy-param",
     },
+    Object {
+      "ParameterKey": "OverwritableParam",
+      "ParameterValue": "from-object-params",
+    },
+    Object {
+      "ParameterKey": "ParamSource",
+      "ParameterValue": "plain-object",
+    },
   ],
   "StackName": "new-stack",
   "TemplateBody": "Parameters:
