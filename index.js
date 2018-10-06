@@ -30,9 +30,9 @@ module.exports = (args) => {
   new Promise(resolve => resolve())
     // Load files
     .then(() => events.emit('LOADING_FILES'))
-    .then(() => loadTemplateFile(args.template, events))
+    .then(() => loadTemplateFile(args.template))
     .then((newTemplateString) => { templateString = newTemplateString; })
-    .then(() => parseParameters(args.parameters, events))
+    .then(() => parseParameters(args.parameters))
     .then((newParamsObj) => { paramsObj = newParamsObj; })
 
     // Validate template

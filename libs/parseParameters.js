@@ -15,8 +15,8 @@ const parseParameters = params => new Promise((resolve, reject) => {
     paramsObj = params;
   } else if (typeof params === 'string' && params.indexOf('ParameterKey=') !== -1) {
     // Parameter is "ParameterKey=S3BucketName,ParameterValue=from-string-params" string
-    let key;
-    let value;
+    let key = '';
+    let value = '';
     params.split(',').forEach((paramPart) => {
       if (paramPart.indexOf('ParameterKey=') !== -1) {
         key = paramPart.split('=')[1].trim();

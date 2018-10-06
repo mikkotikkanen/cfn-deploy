@@ -31,8 +31,10 @@ module.exports = (stackName, changesetName, events) => new Promise((resolve, rej
       const waitParams = {
         StackName: stackName,
       };
-      const waitForState = (stackData.StackStatus === 'REVIEW_IN_PROGRESS' ? 'stackCreateComplete' : 'stackUpdateComplete');
-      return cloudformation.waitFor(waitForState, waitParams).promise();
+      if (stackData.StackStatus === 'REVIEW_IN_PROGRESS') {
+        return cloudformation.waitFor('stackCreateComplete', waitParams).promise();
+      }
+      return cloudformation.waitFor('stackUpdateComplete', waitParams).promise();
     })
     .then(resolve)
     .catch(err => reject(new Error(err.message)));
