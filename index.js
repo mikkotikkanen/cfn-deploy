@@ -51,8 +51,7 @@ module.exports = (args) => {
 
     // All done
     .then((stackData) => {
-      const type = (stackData.StackStatus === 'CREATE_COMPLETE' ? 'CREATE' : 'UPDATE');
-      events.emit('COMPLETE', { type });
+      events.emit('COMPLETE', stackData);
       events.emit('FINALLY');
     })
 

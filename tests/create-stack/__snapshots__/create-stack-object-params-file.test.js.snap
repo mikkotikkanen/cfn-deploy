@@ -50,6 +50,6 @@ Resources:
 
 exports[`cfn-deploy should successfully create new stack 2`] = `
 Object {
-  "type": "UPDATE",
+  "StackStatus": "REVIEW_IN_PROGRESS",
 }
 `;
