@@ -12,7 +12,7 @@
     "ParameterValue": "from-array-params-file"
   },
   {
-    "ParameterKey": "ParamsSource",
+    "ParameterKey": "ParamSource",
     "ParameterValue": "array-params.json"
   }
 ]
