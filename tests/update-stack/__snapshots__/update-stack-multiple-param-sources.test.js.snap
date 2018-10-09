@@ -20,7 +20,7 @@ Object {
       "ParameterValue": "from-array-params-file",
     },
     Object {
-      "ParameterKey": "ParamsSource",
+      "ParameterKey": "ParamSource",
       "ParameterValue": "array-params.json",
     },
     Object {
