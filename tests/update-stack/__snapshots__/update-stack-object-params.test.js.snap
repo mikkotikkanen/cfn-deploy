@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cfn-deploy should successfully create new stack 1`] = `
+exports[`cfn-deploy should successfully update existing stack 1`] = `
 Object {
   "Capabilities": undefined,
   "ChangeSetName": "cfn-deploy",
-  "ChangeSetType": "CREATE",
+  "ChangeSetType": "UPDATE",
   "Description": "Created with cfn-deploy",
   "Parameters": Array [
     Object {
       "ParameterKey": "S3BucketName",
-      "ParameterValue": "from-object-params-file",
+      "ParameterValue": "from-object-params",
     },
     Object {
       "ParameterKey": "DummyParam",
@@ -17,14 +17,14 @@ Object {
     },
     Object {
       "ParameterKey": "OverwritableParam",
-      "ParameterValue": "from-object-params-file",
+      "ParameterValue": "from-object-params",
     },
     Object {
       "ParameterKey": "ParamSource",
-      "ParameterValue": "object-cp-params.json",
+      "ParameterValue": "plain-object",
     },
   ],
-  "StackName": "new-stack",
+  "StackName": "existing-stack",
   "TemplateBody": "Parameters:
   S3BucketName:
     Description: \\"S3 Bucket name\\"
@@ -48,8 +48,8 @@ Resources:
 }
 `;
 
-exports[`cfn-deploy should successfully create new stack 2`] = `
+exports[`cfn-deploy should successfully update existing stack 2`] = `
 Object {
-  "StackStatus": "REVIEW_IN_PROGRESS",
+  "StackStatus": "UPDATE_COMPLETE",
 }
 `;

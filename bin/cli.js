@@ -15,8 +15,9 @@ yargs
     describe: 'Path to template file',
   })
   .option('parameters', {
-    describe: 'Path(s) to parameter file(s) (.json)',
+    describe: 'Path to parameter file or parameter string',
   })
+  .array('parameters')
   .option('region', {
     describe: 'AWS region',
     default: 'us-east-1',
@@ -39,6 +40,8 @@ yargs
 
 // Remove "[boolean]" texts from "help" and "version" options in help view
 yargs.getOptions().boolean.splice(-2);
+// Remove "[array]" texts from "parameters" option in help view
+yargs.getOptions().array.splice(-1);
 
 
 // Set update notifier

@@ -4,20 +4,28 @@ const lib = require('../..');
 
 describe('cfn-deploy', () => {
   beforeAll(() => {
+    let isChangeSetCreated = false;
+
     AWS.mock('CloudFormation', 'validateTemplate', (params, callback) => {
       callback(null, {});
     });
     AWS.mock('CloudFormation', 'describeStacks', (params, callback) => {
-      callback(null, {
-        Stacks: [
-          {
-            StackStatus: 'UPDATE_COMPLETE',
-          },
-        ],
-      });
+      if (!isChangeSetCreated) {
+        callback();
+      } else {
+        // Stack exists once changeset has been created
+        callback(null, {
+          Stacks: [
+            {
+              StackStatus: 'REVIEW_IN_PROGRESS',
+            },
+          ],
+        });
+      }
     });
     AWS.mock('CloudFormation', 'createChangeSet', (params, callback) => {
       expect(params).toMatchSnapshot();
+      isChangeSetCreated = true;
       callback(null, {
         Id: 'fake-changeset-id',
       });
@@ -31,18 +39,18 @@ describe('cfn-deploy', () => {
       callback();
     });
     AWS.mock('CloudFormation', 'deleteChangeSet', (params, callback) => {
-      callback();
+      callback(new Error('SHOULD_NOT_BE_CALLED'));
     });
     AWS.mock('CloudFormation', 'waitFor', (event, params, callback) => {
       if (event === 'changeSetCreateComplete') {
         callback(null, {
           ChangeSetId: 'fake-changeset-id',
         });
-      } else if (event === 'stackUpdateComplete') {
+      } else if (event === 'stackCreateComplete') {
         callback(null, {
           Stacks: [
             {
-              StackStatus: 'UPDATE_COMPLETE',
+              StackStatus: 'CREATE_COMPLETE',
             },
           ],
         });
@@ -50,18 +58,23 @@ describe('cfn-deploy', () => {
     });
   });
 
-  it('should successfully update existing stack', (done) => {
+  it('should successfully create new stack', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'existing-stack',
+      stackName: 'new-stack',
       template: './tests/templates/params-template.yaml',
-      parameters: 'S3BucketName:from-string-params, DummyParam:dummy-param',
+      parameters: {
+        S3BucketName: 'from-object-params',
+        DummyParam: 'dummy-param',
+        OverwritableParam: 'from-object-params',
+        ParamSource: 'plain-object',
+      },
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
-      done();
     });
+    events.on('FINALLY', done);
   });
 
   afterAll(() => {

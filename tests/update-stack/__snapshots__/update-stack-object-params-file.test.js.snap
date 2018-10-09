@@ -15,6 +15,14 @@ Object {
       "ParameterKey": "DummyParam",
       "ParameterValue": "dummy-param",
     },
+    Object {
+      "ParameterKey": "OverwritableParam",
+      "ParameterValue": "from-object-params-file",
+    },
+    Object {
+      "ParameterKey": "ParamSource",
+      "ParameterValue": "object-cp-params.json",
+    },
   ],
   "StackName": "existing-stack",
   "TemplateBody": "Parameters:
@@ -23,6 +31,12 @@ Object {
     Type: String
   DummyParam:
     Description: \\"Dummy parameter\\"
+    Type: String
+  OverwritableParam:
+    Description: \\"Parameter for testing overrides\\"
+    Type: String
+  ParamSource:
+    Description: \\"Source where the parameters came from\\"
     Type: String
 
 Resources:
@@ -36,6 +50,6 @@ Resources:
 
 exports[`cfn-deploy should successfully update existing stack 2`] = `
 Object {
-  "type": "UPDATE",
+  "StackStatus": "UPDATE_COMPLETE",
 }
 `;

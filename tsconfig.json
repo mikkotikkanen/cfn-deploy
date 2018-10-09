@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "lib": [
+      "es2017"
+    ],
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/types"
+    ]
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "typeAcquisition": {
+    "enable": false
+  }
+}

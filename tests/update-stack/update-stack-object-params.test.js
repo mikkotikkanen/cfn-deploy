@@ -58,13 +58,15 @@ describe('cfn-deploy', () => {
       parameters: {
         S3BucketName: 'from-object-params',
         DummyParam: 'dummy-param',
+        OverwritableParam: 'from-object-params',
+        ParamSource: 'plain-object',
       },
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
-      done();
     });
+    events.on('FINALLY', done);
   });
 
   afterAll(() => {

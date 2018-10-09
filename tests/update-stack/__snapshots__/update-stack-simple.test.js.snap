@@ -17,6 +17,6 @@ Object {
 
 exports[`cfn-deploy should successfully update existing stack 2`] = `
 Object {
-  "type": "UPDATE",
+  "StackStatus": "UPDATE_COMPLETE",
 }
 `;

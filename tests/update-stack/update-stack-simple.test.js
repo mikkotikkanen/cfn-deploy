@@ -59,8 +59,8 @@ describe('cfn-deploy', () => {
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
-      done();
     });
+    events.on('FINALLY', done);
   });
 
   afterAll(() => {

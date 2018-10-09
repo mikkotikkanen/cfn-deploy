@@ -1,4 +1,6 @@
 {
   "S3BucketName": "from-object-params-file",
-  "DummyParam": "dummy-param"
+  "DummyParam": "dummy-param",
+  "OverwritableParam": "from-object-params-file",
+  "ParamSource": "object-cp-params.json"
 }

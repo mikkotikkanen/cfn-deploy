@@ -9,7 +9,7 @@ Object {
   "Parameters": Array [
     Object {
       "ParameterKey": "S3BucketName",
-      "ParameterValue": "from-object-params-file",
+      "ParameterValue": "from-string-params-file",
     },
     Object {
       "ParameterKey": "DummyParam",
@@ -17,11 +17,11 @@ Object {
     },
     Object {
       "ParameterKey": "OverwritableParam",
-      "ParameterValue": "from-object-params-file",
+      "ParameterValue": "from-string-params-file",
     },
     Object {
       "ParameterKey": "ParamSource",
-      "ParameterValue": "object-cp-params.json",
+      "ParameterValue": "string-params.json",
     },
   ],
   "StackName": "new-stack",

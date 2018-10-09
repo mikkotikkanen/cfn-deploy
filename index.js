@@ -30,9 +30,9 @@ module.exports = (args) => {
   new Promise(resolve => resolve())
     // Load files
     .then(() => events.emit('LOADING_FILES'))
-    .then(() => loadTemplateFile(args.template, events))
+    .then(() => loadTemplateFile(args.template))
     .then((newTemplateString) => { templateString = newTemplateString; })
-    .then(() => parseParameters(args.parameters, events))
+    .then(() => parseParameters(args.parameters))
     .then((newParamsObj) => { paramsObj = newParamsObj; })
 
     // Validate template
@@ -51,15 +51,15 @@ module.exports = (args) => {
 
     // All done
     .then((stackData) => {
-      const type = (stackData.StackStatus === 'CREATE_COMPLETE' ? 'CREATE' : 'UPDATE');
-      events.emit('COMPLETE', { type });
+      events.emit('COMPLETE', stackData);
+      events.emit('FINALLY');
     })
 
     // Handle errors
-    .catch(err => events.emit('ERROR', err))
-
-    // Trigger finally event
-    .finally(() => events.emit('FINALLY'));
+    .catch((err) => {
+      events.emit('ERROR', err);
+      events.emit('FINALLY');
+    });
 
   return events;
 };
