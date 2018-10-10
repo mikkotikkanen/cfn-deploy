@@ -6,7 +6,7 @@ const fs = require('fs');
  *
  * @param {string|Object} params List of parameters (path to file, string list or plain object)
  */
-const parseParameters = params => new Promise((resolve, reject) => {
+const parseParameterSet = params => new Promise((resolve, reject) => {
   let paramsObj;
 
   // Handle different types
@@ -72,7 +72,11 @@ const parseParameters = params => new Promise((resolve, reject) => {
 });
 
 
-module.exports = paramSets => new Promise((resolve, reject) => { // eslint-disable-line max-len
+/**
+ *
+ * @param {Array} paramSets Parameter sets
+ */
+const parseParameters = paramSets => new Promise((resolve, reject) => {
   // If no params are defined, resolve to empty array
   if (!paramSets) {
     return resolve([]);
@@ -86,7 +90,7 @@ module.exports = paramSets => new Promise((resolve, reject) => { // eslint-disab
 
   // Handle all parameters
   return Promise
-    .all(paramSetsArr.map(filepath => parseParameters(filepath)))
+    .all(paramSetsArr.map(filepath => parseParameterSet(filepath)))
     .then((paramArrays) => {
       // Combine all parameter arrays to one
       let paramsArr = [];
@@ -98,3 +102,6 @@ module.exports = paramSets => new Promise((resolve, reject) => { // eslint-disab
     .then(resolve)
     .catch(reject);
 });
+
+
+module.exports = parseParameters;
