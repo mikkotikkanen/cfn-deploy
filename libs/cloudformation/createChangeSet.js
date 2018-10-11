@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const describeStack = require('./describeStack');
 
 
-module.exports = (args, templateBody, paramsObj, events) => new Promise((resolve, reject) => { // eslint-disable-line max-len
+module.exports = (args, templateBody, paramsObj, events) => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
   let stackData;
   const changesetName = 'cfn-deploy';

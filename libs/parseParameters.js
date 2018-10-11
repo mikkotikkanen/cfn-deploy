@@ -7,7 +7,7 @@ const fs = require('fs');
  * @param {string|Object} params List of parameters (path to file, string list or plain object)
  */
 const parseParameterSet = params => new Promise((resolve, reject) => {
-  let paramsObj;
+  let paramsObj = {};
 
   // Handle different types
   if (!Array.isArray(params) && typeof params === 'object') {
