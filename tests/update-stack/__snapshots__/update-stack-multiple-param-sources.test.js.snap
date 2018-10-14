@@ -53,7 +53,7 @@ Object {
     },
     Object {
       "ParameterKey": "ParamSource",
-      "ParameterValue": "object-cp-params.json",
+      "ParameterValue": "object-params.json",
     },
     Object {
       "ParameterKey": "S3BucketName",
