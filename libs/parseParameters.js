@@ -2,81 +2,61 @@ const fs = require('fs');
 
 
 /**
- * Load parameters file
+ * Map parameters
  *
- * @param {string|Object} params List of parameters (path to file, string list or plain object)
  */
-const parseParameterSet = params => new Promise((resolve, reject) => {
-  let paramsObj = {};
+const parameterMapper = (paramSet) => {
+  let paramSetNew = paramSet;
 
-  // Handle different types
-  if (!Array.isArray(params) && typeof params === 'object') {
-    // Parameter is plain object, pass on as is
-    paramsObj = params;
-  } else if (typeof params === 'string' && params.indexOf('ParameterKey=') !== -1) {
-    // Parameter is "ParameterKey=S3BucketName,ParameterValue=from-string-params" string
-    let key = '';
-    let value = '';
-    params.split(',').forEach((paramPart) => {
-      if (paramPart.indexOf('ParameterKey=') !== -1) {
-        key = paramPart.split('=')[1].trim();
-      } else if (paramPart.indexOf('ParameterValue=') !== -1) {
-        value = paramPart.split('=')[1].trim();
-      }
-    });
-
-    // Set as object
-    paramsObj = {};
-    paramsObj[key] = value;
-  } else if (typeof params === 'string' && params.indexOf('ParameterKey=') === -1) {
-    // Parameter is a path, load the file and try to parse it
-    const paramsString = fs.readFileSync(params, { encoding: 'utf-8' });
+  // File path
+  if (typeof paramSetNew === 'string' && paramSetNew.indexOf('ParameterKey=') === -1) {
+    const paramsString = fs.readFileSync(paramSetNew, { encoding: 'utf-8' });
     try {
-      paramsObj = JSON.parse(paramsString);
+      paramSetNew = JSON.parse(paramsString);
     } catch (err) {
-      reject(new Error('Invalid parameter file.'));
+      throw Error('Invalid parameter file.');
     }
   }
 
-
-  /**
-   * Parse parameters object
-   */
-  // If it's already array, make sure it has correct keys
-  if (Array.isArray(paramsObj) && !paramsObj[0].ParameterKey) {
-    return reject(new Error('Invalid parameters array.'));
+  // CodePipeline Template Configuration array, normalize to plain parameters object
+  // (https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-cfn-artifacts.html#d0e10167)
+  if (!Array.isArray(paramSetNew) && typeof paramSetNew === 'object' && paramSetNew.Parameters) {
+    paramSetNew = paramSetNew.Parameters;
   }
 
-  /**
-   * If it's CloudFormation Template Configuration (file), standardize to plain parameters object
-   *
-   * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-cfn-artifacts.html#d0e10167
-   */
-  if (!Array.isArray(paramsObj) && typeof paramsObj === 'object' && paramsObj.Parameters) {
-    paramsObj = paramsObj.Parameters;
+
+  // Parameter string ("ParameterKey=S3BucketName,ParameterValue=from-string-params")
+  if (typeof paramSetNew === 'string' && paramSetNew.indexOf('ParameterKey=') !== -1) {
+    return paramSetNew.split(',').reduce((obj, param) => {
+      const newObj = obj;
+      const paramParts = param.split('=');
+      [, newObj[paramParts[0]]] = paramParts;
+      return newObj;
+    }, {});
   }
 
-  /**
-   * Convert object to CloudFormation parameters array
-   *
-   * https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html
-   */
-  if (!Array.isArray(paramsObj) && typeof paramsObj === 'object') {
-    paramsObj = Object.keys(paramsObj).map(key => ({
+  // Plain JS object
+  if (!Array.isArray(paramSetNew) && typeof paramSetNew === 'object') {
+    return Object.keys(paramSetNew).map(key => ({
       ParameterKey: key,
-      ParameterValue: paramsObj[key],
+      ParameterValue: paramSetNew[key],
     }));
   }
 
-  return resolve(paramsObj);
-});
+  // Already a params array
+  if (Array.isArray(paramSetNew) && paramSetNew[0].ParameterKey) {
+    return paramSetNew;
+  }
+
+  throw new Error(`Unspported parameter type. ${paramSetNew}`);
+};
 
 
 /**
  *
  * @param {Array} paramSets Parameter sets
  */
-const parseParameters = paramSets => new Promise((resolve, reject) => {
+const parseParameters = paramSets => new Promise((resolve) => {
   // If no params are defined, resolve to empty array
   if (!paramSets) {
     return resolve([]);
@@ -88,19 +68,12 @@ const parseParameters = paramSets => new Promise((resolve, reject) => {
     paramSetsArr = [paramSetsArr];
   }
 
-  // Handle all parameters
-  return Promise
-    .all(paramSetsArr.map(filepath => parseParameterSet(filepath)))
-    .then((paramArrays) => {
-      // Combine all parameter arrays to one
-      let paramsArr = [];
-      paramArrays.forEach((arr) => {
-        paramsArr = paramsArr.concat(arr);
-      });
-      return paramsArr;
-    })
-    .then(resolve)
-    .catch(reject);
+  // Reduce arrays into object
+  const paramsArr = paramSetsArr
+    .map(parameterMapper)
+    .reduce((arr, paramset) => [].concat(arr, paramset), []);
+
+  return resolve(paramsArr);
 });
 
 
