@@ -2,6 +2,7 @@ const { EventEmitter } = require('events');
 const AWS = require('aws-sdk');
 const loadTemplateFile = require('./libs/loadTemplateFile');
 const parseParameters = require('./libs/parseParameters');
+const parseTags = require('./libs/parseTags');
 const validateTemplate = require('./libs/cloudformation/validateTemplate');
 const describeStack = require('./libs/cloudformation/describeStack');
 const validateStackState = require('./libs/cloudformation/validateStackState');
@@ -12,8 +13,9 @@ const deleteChangeSet = require('./libs/cloudformation/deleteChangeSet');
 
 module.exports = (args) => {
   const events = new EventEmitter();
-  let templateString;
-  let paramsObj;
+  let templateString = '';
+  let paramsObj = {};
+  let tagsObj = {};
 
   // Set AWS config
   if (args.profile) {
@@ -32,8 +34,12 @@ module.exports = (args) => {
     .then(() => events.emit('LOADING_FILES'))
     .then(() => loadTemplateFile(args.template))
     .then((newTemplateString) => { templateString = newTemplateString; })
+
+    // Parse params & tags
     .then(() => parseParameters(args.parameters))
     .then((newParamsObj) => { paramsObj = newParamsObj; })
+    .then(() => parseTags(args.tags))
+    .then((newTagsObj) => { tagsObj = newTagsObj; })
 
     // Validate template
     .then(() => validateTemplate(templateString, events))
@@ -43,7 +49,7 @@ module.exports = (args) => {
     .then(() => deleteChangeSet(args.stackName, 'cfn-deploy'))
 
     // Deploy template
-    .then(() => createChangeSet(args, templateString, paramsObj, events))
+    .then(() => createChangeSet(args, templateString, paramsObj, tagsObj, events))
     .then(changesetData => executeChangeSet(args.stackName, changesetData.ChangeSetId, events))
 
     // Get new stack status
