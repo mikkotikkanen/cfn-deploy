@@ -47,7 +47,7 @@
   "scripts": {
     "test": "npm-run-all test:*",
     "test:code": "eslint .",
-    "test:checkjs": "tsc --project tsconfig.json",
+    "test:types": "tsc --project tsconfig.json",
     "test:system": "jest",
     "preversion": "npm test"
   }
