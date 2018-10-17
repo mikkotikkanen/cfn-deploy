@@ -29,8 +29,8 @@ const parameterMapper = (paramSet) => {
   if (typeof paramSetNew === 'string' && paramSetNew.indexOf('ParameterKey=') !== -1) {
     return paramSetNew.split(',').reduce((obj, param) => {
       const newObj = obj;
-      const paramParts = param.split('=');
-      [, newObj[paramParts[0]]] = paramParts;
+      const parts = param.split('=');
+      [, newObj[parts[0]]] = parts;
       return newObj;
     }, {});
   }
