@@ -34,20 +34,33 @@ yargs
   .option('secret-key', {
     describe: 'AWS Secret Access Key',
   })
-  .version()
-  .help()
-  .demandOption(['stack-name', 'template']);
+  .version(false) // Set custom version option to avoid "[boolean]" flag in help
+  .option('version', {
+    describe: 'Show version number',
+  })
+  .help(false) // Set custom help option to avoid "[boolean]" flag in help
+  .option('help', {
+    describe: 'Show help',
+  });
 
-// Remove "[boolean]" texts from "help" and "version" options in help view
-yargs.getOptions().boolean.splice(-2);
-// Remove "[array]" texts from "parameters" option in help view
-yargs.getOptions().array.splice(-1);
+// Show help and version manually
+if (yargs.argv.version) {
+  console.log(pckg.version);
+  process.exit();
+}
+if (yargs.argv.help) {
+  yargs.showHelp('log');
+  process.exit();
+}
 
+// Make sure we have all we need
+yargs.demandOption(['stack-name', 'template']);
 
 // Set update notifier
 updateNotifier({
   pkg: pckg,
   updateCheckInterval: 0,
+  // @ts-ignore (definitely typed is missing isGlobal setting)
   isGlobal: isInstalledGlobally,
 }).notify();
 
