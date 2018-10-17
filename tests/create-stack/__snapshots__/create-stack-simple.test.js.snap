@@ -8,6 +8,7 @@ Object {
   "Description": "Created with cfn-deploy",
   "Parameters": Array [],
   "StackName": "new-stack",
+  "Tags": Array [],
   "TemplateBody": "Resources:
   S3Bucket:
     Type: AWS::S3::Bucket

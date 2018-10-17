@@ -25,6 +25,7 @@ Object {
     },
   ],
   "StackName": "existing-stack",
+  "Tags": Array [],
   "TemplateBody": "Parameters:
   S3BucketName:
     Description: \\"S3 Bucket name\\"
