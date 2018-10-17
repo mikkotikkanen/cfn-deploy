@@ -1,0 +1,5 @@
+{
+  "DummyTag": "dummy-tag",
+  "OverwritableTag": "from-object-tags-file",
+  "TagSource": "object-tags.json"
+}
