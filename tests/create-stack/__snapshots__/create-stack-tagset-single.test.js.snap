@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cfn-deploy should successfully create new stack 1`] = `
+Object {
+  "Capabilities": undefined,
+  "ChangeSetName": "cfn-deploy",
+  "ChangeSetType": "CREATE",
+  "Description": "Created with cfn-deploy",
+  "Parameters": Array [],
+  "StackName": "new-stack",
+  "Tags": Array [
+    Object {
+      "Key": "DummyTag",
+      "Value": "dummy-tag",
+    },
+    Object {
+      "Key": "OverwritableTag",
+      "Value": "from-object-tags-file",
+    },
+    Object {
+      "Key": "TagSource",
+      "Value": "object-tags.json",
+    },
+  ],
+  "TemplateBody": "Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 2`] = `
+Object {
+  "StackStatus": "REVIEW_IN_PROGRESS",
+}
+`;
