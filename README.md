@@ -208,6 +208,70 @@ parameters: ['./cfn/params1.json', './cfn/params2.json'],
 
 You can also mix and match different types of parameters
 
+## tags
+
+Tags to pass for the CloudFormation stack. These will also be passed to any resource that supports
+tagging. Multiple sets of tags are allowed and are combined in the order they are defined, with
+values from latter sets overwriting the previous.
+
+Valid values:
+
+- Path to .json file
+- String (`Key=FirstTag,Value=first-tag-value Key=SecondTag,Value=second-tag-value`)
+- Plain JavaScript object (API only)
+
+
+Valid .json files:
+
+- `aws-cli cloudformation` type JSON file:
+
+```json
+[
+  {
+    "Key": "FirstTag",
+    "Value": "first-tag-value"
+  },
+  {
+    "Key": "SecondTag",
+    "Value": "second-tag-value"
+  }
+]
+```
+
+- Plain JSON object file
+
+```json
+{
+  "FirstTag": "first-tag-value",
+  "SecondTag": "second-tag-value"
+}
+```
+
+- Plain JavaScript object through API
+
+```javascript
+parameters: {
+  FirstTag: 'first-tag-value',
+  SecondTag: 'second-tag-value',
+},
+```
+
+__Multiple tag options__
+
+Pass multiple tag options as repeated `--tags` params
+
+```bash
+cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --tags=./cfn/tags1.json --tags=./cfn/tags2.json
+```
+
+For API, you pass multiple tags options as an array
+
+```javascript
+tags: ['./cfn/tags1.json', './cfn/tags2.json'],
+```
+
+You can also mix and match different types of tags
+
 ## region
 
 AWS region
