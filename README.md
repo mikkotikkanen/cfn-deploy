@@ -128,7 +128,7 @@ See [options](#options) for more details.
 | EXECUTING_CHANGESET          | Changeset is being executed                    |
 | COMPLETE                     | Deployment is complete                         |
 | ERROR                        | Deployment errored                             |
-| FINALLY                      | All work finished (errored or complete)        |
+| FINALLY                      | All work finished (error or success)           |
 
 
 
