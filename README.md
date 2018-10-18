@@ -2,13 +2,26 @@
 
 Simple utility for AWS CloudFormation deployments
 
+## Description
 
-## Motivation
-- Serverless framework seems like overkill just for CloudFormation deployments
-- Modules like aws-cfm-utils do weird stuff like ASG toggling which is not kosher
-- `aws-cli cloudformation deploy` doesn't allow passing CloudFormation parameter files
-- Need for full spectrum of use in `package.json` scripts
-- Need for fully programmatic & customized use in other modules
+The need for this module arose from having to do direct manipulation of CloudFormation stacks
+through `aws-cli` which is lacking in features (fe. not able to use params in CodePipeline format,
+thus not able to deploy existing things) and any other available modules were not to satisfactory
+(fe. doing ASG scale toggling while deploying etc.).
+
+Also, there wasn't a module to satisfactory that would enable building other components that
+utilize CloudFormation but would have their own purposes and identities (fe. custom loggers).
+`cfn-deploy` allows you to build other modules and behaviors that do their own wonderful things
+while not having to worry about deploying things properly to AWS.
+
+
+## Features
+- Runs all stack operations as change sets in order to avoid obvious problems in stack operations
+- Automatically validates templates
+- Assigns any stack tags automatically to any resource that supports tags
+- Accepts multitude of parameter formats, including files in CodePipeline parameters format
+- Accepts multitude of tag formats
+- Fully programmable API, down to custom loggers
 
 
 # Configuration
@@ -24,7 +37,6 @@ variables (Recommended for server/container environments)
 
 Additionally, you can define your AWS access and secret keys as parameters, but this is not
 recommended as they A) can end to version control or B) will stay readable in logs.
-
 
 
 # Command line (cli) use
