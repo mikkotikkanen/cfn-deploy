@@ -1,0 +1,14 @@
+[
+  {
+    "Key": "DummyTag",
+    "Value": "dummy-tag"
+  },
+  {
+    "Key": "OverwritableTag",
+    "Value": "from-array-tags-file"
+  },
+  {
+    "Key": "TagSource",
+    "Value": "array-params.json"
+  }
+]

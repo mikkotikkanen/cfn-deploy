@@ -8,7 +8,20 @@ Object {
   "Description": "Created with cfn-deploy",
   "Parameters": Array [],
   "StackName": "new-stack",
-  "Tags": Array [],
+  "Tags": Array [
+    Object {
+      "Key": "DummyTag",
+      "Value": "dummy-tag",
+    },
+    Object {
+      "Key": "OverwritableTag",
+      "Value": "from-object-tags-file",
+    },
+    Object {
+      "Key": "TagSource",
+      "Value": "object-tags.json",
+    },
+  ],
   "TemplateBody": "Resources:
   S3Bucket:
     Type: AWS::S3::Bucket

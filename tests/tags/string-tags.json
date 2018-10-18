@@ -1,0 +1,5 @@
+[
+  "Key=DummyTag,Value=dummy-tag",
+  "Key=OverwritableTag,Value=from-string-tags-file",
+  "Key=TagSource,Value=string-tags.json"
+]

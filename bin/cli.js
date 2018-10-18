@@ -18,6 +18,10 @@ yargs
     describe: 'Path to parameter file or parameter string',
   })
   .array('parameters')
+  .option('tags', {
+    describe: 'Path to tags file or tags string',
+  })
+  .array('tags')
   .option('region', {
     describe: 'AWS region',
     default: 'us-east-1',
