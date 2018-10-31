@@ -2,7 +2,7 @@
 
 exports[`cfn-deploy should successfully update existing stack 1`] = `
 Object {
-  "Capabilities": undefined,
+  "Capabilities": Array [],
   "ChangeSetName": "cfn-deploy",
   "ChangeSetType": "UPDATE",
   "Description": "Created with cfn-deploy",
