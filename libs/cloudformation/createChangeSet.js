@@ -18,7 +18,7 @@ module.exports = (args, templateBody, paramsObj, tagsObj, events) => new Promise
         StackName: args.stackName,
         ChangeSetName: changesetName,
         Description: 'Created with cfn-deploy',
-        Capabilities: args.capabilities,
+        Capabilities: (args.capabilities ? [args.capabilities] : []),
         ChangeSetType: (stackData ? 'UPDATE' : 'CREATE'),
         Parameters: paramsObj,
         Tags: tagsObj,
