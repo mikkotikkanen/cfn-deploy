@@ -39,6 +39,18 @@ Object {
     },
     Object {
       "Key": "OverwritableTag",
+      "Value": "from-object-tags-cp-file",
+    },
+    Object {
+      "Key": "TagSource",
+      "Value": "object-cp-tags.json",
+    },
+    Object {
+      "Key": "DummyTag",
+      "Value": "dummy-tag",
+    },
+    Object {
+      "Key": "OverwritableTag",
       "Value": "from-object-tags",
     },
     Object {

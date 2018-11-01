@@ -10,6 +10,7 @@ describe('cfn-deploy', () => {
     let tagsArray = [
       './tests/tags/array-tags.json',
       './tests/tags/object-tags.json',
+      './tests/tags/object-cp-tags.json',
       {
         DummyTag: 'dummy-tag',
         OverwritableTag: 'from-object-tags',

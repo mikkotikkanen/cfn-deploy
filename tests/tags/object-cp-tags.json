@@ -1,0 +1,7 @@
+{
+  "Tags": {
+    "DummyTag": "dummy-tag",
+    "OverwritableTag": "from-object-tags-cp-file",
+    "TagSource": "object-cp-tags.json"
+  }
+}

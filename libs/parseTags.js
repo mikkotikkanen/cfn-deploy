@@ -29,6 +29,12 @@ const tagMapper = (tagSet) => {
     }, {});
   }
 
+  // CodePipeline Template Configuration array, normalize to plain tags object
+  // (https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-cfn-artifacts.html#d0e10167)
+  if (!Array.isArray(tagSetNew) && typeof tagSetNew === 'object' && tagSetNew.Tags) {
+    tagSetNew = tagSetNew.Tags;
+  }
+
   // Plain JS object
   if (!Array.isArray(tagSetNew) && typeof tagSetNew === 'object') {
     return Object.keys(tagSetNew).map(key => ({
