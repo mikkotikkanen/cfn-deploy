@@ -1,0 +1,12 @@
+settings:
+  region: "eu-west-1"
+
+modules:
+  cfn-deploy:
+    region: "eu-west-1"
+    stackname: "test-stack"
+    template: "tests/templates/params-template.yaml"
+    parameters: "tests/params/array-params.json"
+
+  cfn-featurestack:
+    region: "eu-west-1"
