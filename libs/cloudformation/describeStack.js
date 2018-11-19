@@ -1,15 +1,15 @@
 const AWS = require('aws-sdk');
 
 
-module.exports = stackName => new Promise((resolve, reject) => {
+module.exports = stackname => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
 
   const params = {
-    StackName: stackName,
+    StackName: stackname,
   };
   cloudformation.describeStacks(params, (err, stacksData) => {
     // It's ok if stack doesn't exist, reject everything else
-    if (err && err.message !== `Stack with id ${stackName} does not exist`) {
+    if (err && err.message !== `Stack with id ${stackname} does not exist`) {
       return reject(new Error(err.message));
     }
 

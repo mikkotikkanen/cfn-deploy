@@ -2,16 +2,16 @@ const AWS = require('aws-sdk');
 const describeStack = require('./describeStack');
 
 
-module.exports = (stackName, changesetName) => new Promise((resolve, reject) => {
+module.exports = (stackname, changesetName) => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
 
   // Make sure stack exists
-  describeStack(stackName)
+  describeStack(stackname)
     .then((stackData) => {
       if (stackData) {
         // Make sure the changeset exists
         const describeParams = {
-          StackName: stackName,
+          StackName: stackname,
           ChangeSetName: changesetName,
         };
         cloudformation.describeChangeSet(describeParams).promise()

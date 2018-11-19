@@ -50,7 +50,7 @@ npm install cfn-deploy -g
 ## Usage
 
 ```bash
-cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml
+cfn-deploy --stackname=fancy-stack --template=./cfn/cfn-stack.yaml
 ```
 
 See [options](#options) for more details.
@@ -72,7 +72,7 @@ Add the cli script to `package.json`:
 ```json
 {
   "scripts": {
-    "deploy": "cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml"
+    "deploy": "cfn-deploy --stackname=fancy-stack --template=./cfn/cfn-stack.yaml"
   }
 }
 ```
@@ -100,7 +100,7 @@ Write your application:
 const cfnDeploy = require('cfn-deploy');
 
 const eventStream = cfnDeploy({
-  stackName: 'fancy-stack',
+  stackname: 'fancy-stack',
   template: 'cfn/cfn-stack.yaml',
 });
 
@@ -136,11 +136,9 @@ See [options](#options) for more details.
 
 Command line and package.json options are same, API configuration uses camelCase for options.
 
-## stack-name
+## stackname
 
 The name associated with the stack
-
-In API calls, use camelCase (`stackName`)
 
 ## template
 
@@ -209,7 +207,7 @@ __Multiple parameter options__
 Pass multiple parameter options as repeated `--parameters` params
 
 ```bash
-cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
+cfn-deploy --stackname=fancy-stack --template=./cfn/cfn-stack.yaml --parameters=./cfn/params1.json --parameters=./cfn/params2.json
 ```
 
 For API, you pass multiple parameter options as an array
@@ -273,7 +271,7 @@ __Multiple tag options__
 Pass multiple tag options as repeated `--tags` params
 
 ```bash
-cfn-deploy --stack-name=fancy-stack --template=./cfn/cfn-stack.yaml --tags=./cfn/tags1.json --tags=./cfn/tags2.json
+cfn-deploy --stackname=fancy-stack --template=./cfn/cfn-stack.yaml --tags=./cfn/tags1.json --tags=./cfn/tags2.json
 ```
 
 For API, you pass multiple tags options as an array
@@ -301,17 +299,13 @@ Valid values:
 
 Load profile from shared credentials file (in `.aws\credentials`)
 
-## access-key
+## accesskey
 
 AWS Access Key.
 
-In API calls, use camelCase (`accessKey`)
-
-## secret-key
+## secretkey
 
 AWS Secret Access Key
-
-In API calls, use camelCase (`secretKey`)
 
 ## version
 

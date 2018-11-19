@@ -24,8 +24,8 @@ module.exports = (args) => {
   }
   AWS.config.update({
     region: args.region,
-    accessKeyId: args.accessKey,
-    secretAccessKey: args.secretKey,
+    accessKeyId: args.accesskey,
+    secretAccessKey: args.secretkey,
   });
 
   // Start with empty promise so that there is no immediate call and event emitter returns first
@@ -45,15 +45,15 @@ module.exports = (args) => {
     .then(() => validateTemplate(templateString, events))
 
     // Make sure stack is ready
-    .then(() => validateStackState(args.stackName, events))
-    .then(() => deleteChangeSet(args.stackName, 'cfn-deploy'))
+    .then(() => validateStackState(args.stackname, events))
+    .then(() => deleteChangeSet(args.stackname, 'cfn-deploy'))
 
     // Deploy template
     .then(() => createChangeSet(args, templateString, paramsObj, tagsObj, events))
-    .then(changesetData => executeChangeSet(args.stackName, changesetData.ChangeSetId, events))
+    .then(changesetData => executeChangeSet(args.stackname, changesetData.ChangeSetId, events))
 
     // Get new stack status
-    .then(() => describeStack(args.stackName))
+    .then(() => describeStack(args.stackname))
 
     // All done
     .then((stackData) => {

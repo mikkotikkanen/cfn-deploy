@@ -8,7 +8,7 @@ const defaultLogger = require('../libs/loggers/defaultLogger');
 
 
 yargs
-  .option('stack-name', {
+  .option('stackname', {
     describe: 'The name associated with the stack',
   })
   .option('template', {
@@ -32,10 +32,10 @@ yargs
   .option('profile', {
     describe: 'Load profile from shared credentials file',
   })
-  .option('access-key', {
+  .option('accesskey', {
     describe: 'AWS Access Key',
   })
-  .option('secret-key', {
+  .option('secretkey', {
     describe: 'AWS Secret Access Key',
   })
   .version(false) // Set custom version option to avoid "[boolean]" flag in help
@@ -58,7 +58,7 @@ if (yargs.argv.help) {
 }
 
 // Make sure we have all we need
-yargs.demandOption(['stack-name', 'template']);
+yargs.demandOption(['stackname', 'template']);
 
 // Set update notifier
 updateNotifier({

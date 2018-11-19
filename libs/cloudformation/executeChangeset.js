@@ -2,17 +2,17 @@ const AWS = require('aws-sdk');
 const describeStack = require('./describeStack');
 
 
-module.exports = (stackName, changesetName, events) => new Promise((resolve, reject) => {
+module.exports = (stackname, changesetName, events) => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
   let stackData;
 
   // Get the stack data
-  describeStack(stackName)
+  describeStack(stackname)
     .then((newStackData) => {
       stackData = newStackData;
 
       const describeParams = {
-        StackName: stackName,
+        StackName: stackname,
         ChangeSetName: changesetName,
       };
       return cloudformation.describeChangeSet(describeParams).promise();
@@ -29,7 +29,7 @@ module.exports = (stackName, changesetName, events) => new Promise((resolve, rej
 
       // Wait for the stack create/update
       const waitParams = {
-        StackName: stackName,
+        StackName: stackname,
       };
       if (stackData.StackStatus === 'REVIEW_IN_PROGRESS') {
         return cloudformation.waitFor('stackCreateComplete', waitParams).promise();
