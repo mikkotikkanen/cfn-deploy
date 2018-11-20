@@ -32,14 +32,11 @@ module.exports = (args) => {
   new Promise(resolve => resolve())
     // Load files
     .then(() => events.emit('LOADING_FILES'))
-    .then(() => loadTemplateFile(args.template))
-    .then((newTemplateString) => { templateString = newTemplateString; })
+    .then(async () => { templateString = await loadTemplateFile(args.template); })
 
     // Parse params & tags
-    .then(() => parseParameters(args.parameters))
-    .then((newParamsObj) => { paramsObj = newParamsObj; })
-    .then(() => parseTags(args.tags))
-    .then((newTagsObj) => { tagsObj = newTagsObj; })
+    .then(async () => { paramsObj = await parseParameters(args.parameters); })
+    .then(async () => { tagsObj = await parseTags(args.tags); })
 
     // Validate template
     .then(() => validateTemplate(templateString, events))
