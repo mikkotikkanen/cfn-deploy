@@ -62,14 +62,8 @@ const parseTags = tagSets => new Promise((resolve) => {
     return resolve([]);
   }
 
-  // Make sure what we have is an array (of tag sets)
-  let tagSetsArr = tagSets;
-  if (!Array.isArray(tagSetsArr)) {
-    tagSetsArr = [tagSetsArr];
-  }
-
   // Reduce arrays into object
-  const tagsArr = tagSetsArr
+  const tagsArr = tagSets
     .map(tagMapper)
     .reduce((arr, tagset) => [].concat(arr, tagset), []);
 
