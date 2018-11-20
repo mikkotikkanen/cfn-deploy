@@ -15,6 +15,7 @@ yargs
     describe: 'Path to template file',
   })
   .option('parameters', {
+    alias: 'params',
     describe: 'Path to parameter file or parameter string',
   })
   .array('parameters')
