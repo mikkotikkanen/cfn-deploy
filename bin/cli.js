@@ -51,11 +51,11 @@ yargs
 // Show help and version manually
 if (yargs.argv.version) {
   console.log(pckg.version);
-  process.exit();
+  process.exit(); /* eslint-disable-line no-process-exit */
 }
 if (yargs.argv.help) {
   yargs.showHelp('log');
-  process.exit();
+  process.exit(); /* eslint-disable-line no-process-exit */
 }
 
 // Make sure we have all we need
@@ -86,6 +86,6 @@ events.on('ERROR', () => {
 
 events.on('FINALLY', () => {
   if (hasErrored) {
-    process.exit(1);
+    process.exit(1); /* eslint-disable-line no-process-exit */
   }
 });
