@@ -20,7 +20,7 @@ describe('cfn-deploy', () => {
     tagsArray = tagsArray.concat(stringTags);
     const events = lib({
       region: 'us-east-1',
-      stackName: 'existing-stack',
+      stackname: 'existing-stack',
       template: './tests/templates/simple-template.yaml',
       tags: tagsArray,
     });

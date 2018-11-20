@@ -8,9 +8,9 @@ describe('cfn-deploy', () => {
   it('should successfully create new stack', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'new-stack',
+      stackname: 'new-stack',
       template: './tests/templates/params-template.yaml',
-      parameters: './tests/params/object-params.json',
+      parameters: ['./tests/params/object-params.json'],
     });
     events.on('ERROR', err => done(err));
     events.on('COMPLETE', (data) => {

@@ -21,7 +21,7 @@ describe('CloudFormation.validateTemplate', () => {
   it('should error on invalid stack state', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'test-stack',
+      stackname: 'test-stack',
       template: './tests/templates/simple-template.yaml',
     });
     events.on('ERROR', (err) => {

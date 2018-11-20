@@ -1,9 +1,9 @@
 const describeStack = require('./describeStack');
 
-module.exports = (stackName, events) => {
+module.exports = (stackname, events) => {
   events.emit('VALIDATING_STACKSTATE');
 
-  return describeStack(stackName)
+  return describeStack(stackname)
     .then((stackData) => {
       // Only COMPLETE state stack can be updated
       if (stackData && !/_COMPLETE$/.test(stackData.StackStatus)) {

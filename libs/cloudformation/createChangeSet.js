@@ -8,14 +8,14 @@ module.exports = (args, templateBody, paramsObj, tagsObj, events) => new Promise
   const changesetName = 'cfn-deploy';
 
   // Get the stack data
-  describeStack(args.stackName)
+  describeStack(args.stackname)
     .then((newStackData) => {
       stackData = newStackData;
       events.emit('CREATING_CHANGESET', { type: (stackData ? 'UPDATE' : 'CREATE') });
 
       // Create changeset
       const createParams = {
-        StackName: args.stackName,
+        StackName: args.stackname,
         ChangeSetName: changesetName,
         Description: 'Created with cfn-deploy',
         Capabilities: (args.capabilities ? [args.capabilities] : []),
@@ -37,7 +37,7 @@ module.exports = (args, templateBody, paramsObj, tagsObj, events) => new Promise
     .catch((err) => {
       // Get changeset data to see what went wrong
       const describeParams = {
-        StackName: args.stackName,
+        StackName: args.stackname,
         ChangeSetName: changesetName,
       };
       cloudformation.describeChangeSet(describeParams).promise()

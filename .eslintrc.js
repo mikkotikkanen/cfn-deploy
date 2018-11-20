@@ -5,7 +5,7 @@ module.exports = {
       browser: true,
       jest: true,
     },
-    extends: 'airbnb-base',
+    extends: ['airbnb-base', 'plugin:node/recommended'],
     rules: {
       'no-console': 'off',
     },

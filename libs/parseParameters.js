@@ -62,14 +62,8 @@ const parseParameters = paramSets => new Promise((resolve) => {
     return resolve([]);
   }
 
-  // Make sure what we have is an array (of parameter sets)
-  let paramSetsArr = paramSets;
-  if (!Array.isArray(paramSetsArr)) {
-    paramSetsArr = [paramSetsArr];
-  }
-
   // Reduce arrays into object
-  const paramsArr = paramSetsArr
+  const paramsArr = paramSets
     .map(parameterMapper)
     .reduce((arr, paramset) => [].concat(arr, paramset), []);
 

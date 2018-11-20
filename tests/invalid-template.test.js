@@ -12,7 +12,7 @@ describe('CloudFormation.validateTemplate', () => {
   it('should error on invalid template', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'test-stack',
+      stackname: 'test-stack',
       template: './tests/templates/invalid-template.yaml',
     });
     events.on('ERROR', (err) => {

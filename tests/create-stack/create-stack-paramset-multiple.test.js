@@ -21,7 +21,7 @@ describe('cfn-deploy', () => {
     paramsArray = paramsArray.concat(stringParams);
     const events = lib({
       region: 'us-east-1',
-      stackName: 'new-stack',
+      stackname: 'new-stack',
       template: './tests/templates/params-template.yaml',
       parameters: paramsArray,
     });

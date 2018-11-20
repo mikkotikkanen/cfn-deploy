@@ -9,7 +9,7 @@ describe('cfn-deploy', () => {
   it('should successfully create new stack', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'new-stack',
+      stackname: 'new-stack',
       template: './tests/templates/params-template.yaml',
       parameters: stringParams,
     });

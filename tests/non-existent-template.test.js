@@ -5,7 +5,7 @@ describe('CloudFormation.validateTemplate', () => {
   it('should error on non-existent template', (done) => {
     const events = lib({
       region: 'us-east-1',
-      stackName: 'test-stack',
+      stackname: 'test-stack',
       template: './tests/templates/non-existent-template.yaml',
     });
     events.on('ERROR', (err) => {
