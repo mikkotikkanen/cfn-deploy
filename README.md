@@ -24,6 +24,13 @@ while not having to worry about deploying things properly to AWS.
 - Fully programmable API, down to custom loggers
 
 
+## Migrating from 0.x to 1.x
+
+- Dashed parameters are now undashed in order to keep the same formatting in API use (`stack-name`
+-> `stackname`)
+- `tags` and `parameters` in API use are now required to be an array
+
+
 # Configuration
 
 cfn-deploy will by default use any locally pre-configured AWS account. You can pre-configure your
