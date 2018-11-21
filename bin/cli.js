@@ -65,7 +65,7 @@ yargs.demandOption(['stackname', 'template']);
 updateNotifier({
   pkg: pckg,
   updateCheckInterval: 0,
-  // @ts-ignore (definitely typed is missing isGlobal setting)
+  // @ts-ignore (DefinitelyTyped is missing isGlobal setting)
   isGlobal: isInstalledGlobally,
 }).notify();
 
