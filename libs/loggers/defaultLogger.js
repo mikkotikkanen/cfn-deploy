@@ -60,7 +60,7 @@ const error = (msg) => {
     stopProgressBar();
   }
 
-  // Use Amazon orange for the logging
+  // Use red for errors
   console.log(`${pckg.name}: ${chalk.default.red(msg)}`);
 };
 
