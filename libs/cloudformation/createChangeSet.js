@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const describeStack = require('./describeStack');
 
 
-module.exports = (args, templateBody, paramsObj, tagsObj, events) => new Promise((resolve, reject) => { // eslint-disable-line max-len
+module.exports = (args, templateBody, paramsObj, tagsObj) => new Promise((resolve, reject) => { // eslint-disable-line max-len
   const cloudformation = new AWS.CloudFormation();
   let stackData;
   const changesetName = 'cfn-deploy';
@@ -11,7 +11,6 @@ module.exports = (args, templateBody, paramsObj, tagsObj, events) => new Promise
   describeStack(args.stackname)
     .then((newStackData) => {
       stackData = newStackData;
-      events.emit('CREATING_CHANGESET', { type: (stackData ? 'UPDATE' : 'CREATE') });
 
       // Create changeset
       const createParams = {

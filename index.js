@@ -1,5 +1,6 @@
 const { EventEmitter } = require('events');
 const AWS = require('aws-sdk');
+
 const loadTemplateFile = require('./libs/loadTemplateFile');
 const parseParameters = require('./libs/parseParameters');
 const parseTags = require('./libs/parseTags');
@@ -16,6 +17,8 @@ module.exports = (args) => {
   let templateString = '';
   let paramsObj = {};
   let tagsObj = {};
+  let stackData = {};
+  let changeSetData = {};
 
   // Set AWS config
   if (args.profile) {
@@ -42,22 +45,30 @@ module.exports = (args) => {
     .then((newTagsObj) => { tagsObj = newTagsObj; })
 
     // Validate template
-    .then(() => validateTemplate(templateString, events))
+    .then(() => events.emit('VALIDATING_TEMPLATE'))
+    .then(() => validateTemplate(templateString))
 
-    // Make sure stack is ready
-    .then(() => validateStackState(args.stackname, events))
+    // Validate stack state
+    .then(() => events.emit('VALIDATING_STACKSTATE'))
+    .then(() => validateStackState(args.stackname))
+    .then((newStackData) => { stackData = newStackData; })
     .then(() => deleteChangeSet(args.stackname, 'cfn-deploy'))
 
-    // Deploy template
-    .then(() => createChangeSet(args, templateString, paramsObj, tagsObj, events))
-    .then(changesetData => executeChangeSet(args.stackname, changesetData.ChangeSetId, events))
+    // Create changeset
+    .then(() => events.emit('CREATING_CHANGESET', { type: (stackData ? 'UPDATE' : 'CREATE') }))
+    .then(() => createChangeSet(args, templateString, paramsObj, tagsObj))
+    .then((newChangeSetData) => { changeSetData = newChangeSetData; })
+
+    // Execute changeset
+    .then(() => events.emit('EXECUTING_CHANGESET', { type: (stackData ? 'UPDATE' : 'CREATE') }))
+    .then(() => executeChangeSet(args.stackname, changeSetData.ChangeSetId))
 
     // Get new stack status
     .then(() => describeStack(args.stackname))
 
-    // All done
-    .then((stackData) => {
-      events.emit('COMPLETE', stackData);
+    // Done
+    .then((newStackData) => {
+      events.emit('COMPLETE', newStackData);
       events.emit('FINALLY');
     })
 

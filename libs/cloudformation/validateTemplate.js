@@ -1,9 +1,8 @@
 const AWS = require('aws-sdk');
 
 
-module.exports = (templateBody, events) => new Promise((resolve, reject) => {
+module.exports = templateBody => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
-  events.emit('VALIDATING_TEMPLATE');
 
   const params = {
     TemplateBody: templateBody,
