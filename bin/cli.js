@@ -3,7 +3,7 @@ const yargs = require('yargs');
 const updateNotifier = require('update-notifier');
 const isInstalledGlobally = require('is-installed-globally');
 const pckg = require('../package.json');
-const index = require('../index');
+const lib = require('../index');
 const defaultLogger = require('../libs/loggers/defaultLogger');
 
 
@@ -72,7 +72,7 @@ updateNotifier({
 
 // Call the library with cli arguments
 const args = yargs.argv;
-const events = index(args);
+const events = lib(args);
 
 // Start logger
 defaultLogger(args, events);
