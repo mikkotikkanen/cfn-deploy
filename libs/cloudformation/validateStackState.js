@@ -7,6 +7,7 @@ module.exports = stackname => new Promise((resolve, reject) => {
       if (stackData && !/_COMPLETE$/.test(stackData.StackStatus)) {
         throw new Error(`Can't update stack when status is "${stackData.StackStatus}"`);
       }
+
       resolve(stackData);
     })
     .catch(err => reject(new Error(err.message)));
