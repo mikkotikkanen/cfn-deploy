@@ -10,7 +10,7 @@ let isProgressBarRunning = false;
 /**
  * Start/stop progressbar
  *
- * Note: Use chalk.default to make TSC happy
+ * Note: Use logUpdate.default & chalk.default to make TS checkJs happy
  */
 const startProgressBar = () => {
   let progressBarDots = chalk.default.hex(awsOrange)('.');
