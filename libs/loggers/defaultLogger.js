@@ -84,6 +84,9 @@ module.exports = (args, events) => {
   events.on('COMPLETE', () => {
     log('Deployment complete...');
   });
+  events.on('PLUGIN_EVENT', (message) => {
+    log(message);
+  });
   events.on('ERROR', (err) => {
     error(err.message);
     if (args.debug) {
