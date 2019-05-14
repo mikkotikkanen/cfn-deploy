@@ -81,8 +81,16 @@ module.exports = (args, events) => {
     log('Executing change set...');
     startProgressBar();
   });
-  events.on('COMPLETE', () => {
+  events.on('COMPLETE', (stackState) => {
     log('Deployment complete...');
+    if (stackState.Outputs) {
+      console.log('');
+      console.log('Outputs:');
+      stackState.Outputs.forEach((item) => {
+        console.log(`${chalk.default.grey(item.OutputKey)} = ${chalk.default.grey(item.OutputValue)}`);
+      });
+    }
+    console.log('');
   });
   events.on('ERROR', (err) => {
     error(err.message);
