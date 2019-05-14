@@ -31,6 +31,25 @@ module.exports = (args) => {
     secretAccessKey: args.secretkey,
   });
 
+  // Prepare plugins
+  const runPlugins = plugins => Promise.all(plugins.map(fnc => fnc(events)));
+  const plugins = [];
+  plugins.push(require('./plugins/test-plugin')); /* eslint-disable-line node/no-unpublished-require, global-require */
+
+  // Prepare hooks
+  const hooks = {
+    TEMPLATE_VALIDATE_PRE: [],
+  };
+  plugins.forEach((plugin) => {
+    Object.keys(plugin.hooks).forEach((key) => {
+      // hooks[key] = hooks[key].concat(plugin[key]);
+      if (!hooks[key]) {
+        throw new Error(`Unknown hook. "${key}"`);
+      }
+      hooks[key].push(plugin.hooks[key]);
+    });
+  });
+
   // Start with empty promise so that there is no immediate call and event emitter returns first
   new Promise(resolve => resolve())
     // Load files
@@ -38,15 +57,23 @@ module.exports = (args) => {
     .then(() => loadTemplateFile(args.template))
     .then((newTemplateString) => { templateString = newTemplateString; })
 
-    // Parse params & tags
+    // Parse params
+    .then(() => events.emit('PARAMETERS_PARSING'))
     .then(() => parseParameters(args.parameters))
     .then((newParamsObj) => { paramsObj = newParamsObj; })
+
+    // Parse tags
+    .then(() => events.emit('PARSING_TAGS'))
     .then(() => parseTags(args.tags))
     .then((newTagsObj) => { tagsObj = newTagsObj; })
 
+
     // Validate template
-    .then(() => events.emit('VALIDATING_TEMPLATE'))
+    .then(() => runPlugins(hooks.TEMPLATE_VALIDATE_PRE))
+    .then(() => events.emit('VALIDATING_TEMPLATE')) // v1.x
+    .then(() => events.emit('TEMPLATE_VALIDATE_PRE'))
     .then(() => validateTemplate(templateString))
+    .then(() => events.emit('TEMPLATE_VALIDATE_POST'))
 
     // Validate stack state
     .then(() => events.emit('VALIDATING_STACKSTATE'))
