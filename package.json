@@ -1,6 +1,6 @@
 {
   "name": "cfn-deploy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple AWS CloudFormation deployments",
   "keywords": [
     "aws",
