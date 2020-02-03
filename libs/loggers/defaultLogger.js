@@ -13,11 +13,11 @@ let isProgressBarRunning = false;
  * Note: Use logUpdate.default & chalk.default to make TS checkJs happy
  */
 const startProgressBar = () => {
-  let progressBarDots = chalk.default.hex(awsOrange)('.');
+  let progressBarDots = chalk.hex(awsOrange)('.');
   logUpdate.default(progressBarDots);
 
   progressBarTimer = setInterval(() => {
-    progressBarDots += chalk.default.hex(awsOrange)('.');
+    progressBarDots += chalk.hex(awsOrange)('.');
     logUpdate.default(progressBarDots);
   }, 5 * 1000);
 
@@ -44,7 +44,7 @@ const log = (msg) => {
   }
 
   // Use Amazon orange for the logging
-  console.log(`${pckg.name}: ${chalk.default.hex(awsOrange)(msg)}`);
+  console.log(`${pckg.name}: ${chalk.hex(awsOrange)(msg)}`);
 };
 
 
@@ -61,7 +61,7 @@ const error = (msg) => {
   }
 
   // Use red for errors
-  console.log(`${pckg.name}: ${chalk.default.red(msg)}`);
+  console.log(`${pckg.name}: ${chalk.red(msg)}`);
 };
 
 
@@ -87,7 +87,7 @@ module.exports = (args, events) => {
       console.log('');
       console.log('Outputs:');
       stackState.Outputs.forEach((item) => {
-        console.log(`${chalk.default.grey(item.OutputKey)} = ${chalk.default.grey(item.OutputValue)}`);
+        console.log(`${chalk.grey(item.OutputKey)} = ${chalk.grey(item.OutputValue)}`);
       });
     }
     console.log('');
