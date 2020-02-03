@@ -54,9 +54,9 @@
   },
   "scripts": {
     "test": "npm-run-all test:*",
-    "test:code": "eslint .",
-    "test:types": "tsc --project tsconfig.json",
-    "test:system": "jest",
+    "test:eslint": "eslint .",
+    "test:tsc": "tsc --project tsconfig.json",
+    "test:jest": "jest",
     "preversion": "npm test",
     "update-ui": "npm-check -u"
   }
