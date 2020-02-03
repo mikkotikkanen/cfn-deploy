@@ -11,7 +11,7 @@ describe('cfn-deploy', () => {
       stackname: 'existing-stack',
       template: './tests/templates/simple-template.yaml',
     });
-    events.on('ERROR', err => done(err));
+    events.on('ERROR', (err) => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
     });

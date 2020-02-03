@@ -12,7 +12,7 @@ describe('cfn-deploy', () => {
       template: './tests/templates/simple-template.yaml',
       capabilities: 'CAPABILITY_IAM',
     });
-    events.on('ERROR', err => done(err));
+    events.on('ERROR', (err) => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
     });

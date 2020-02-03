@@ -37,7 +37,7 @@ const tagMapper = (tagSet) => {
 
   // Plain JS object
   if (!Array.isArray(tagSetNew) && typeof tagSetNew === 'object') {
-    return Object.keys(tagSetNew).map(key => ({
+    return Object.keys(tagSetNew).map((key) => ({
       Key: key,
       Value: tagSetNew[key],
     }));
@@ -56,7 +56,7 @@ const tagMapper = (tagSet) => {
  *
  * @param {Array} tagSets Tag sets
  */
-const parseTags = tagSets => new Promise((resolve) => {
+const parseTags = (tagSets) => new Promise((resolve) => {
   // If no tags are defined, resolve to empty array
   if (!tagSets) {
     return resolve([]);

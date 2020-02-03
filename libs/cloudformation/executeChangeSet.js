@@ -35,5 +35,5 @@ module.exports = (stackname, changesetName) => new Promise((resolve, reject) => 
       return cloudformation.waitFor('stackUpdateComplete', waitParams).promise();
     })
     .then(resolve)
-    .catch(err => reject(new Error(err.message)));
+    .catch((err) => reject(new Error(err.message)));
 });

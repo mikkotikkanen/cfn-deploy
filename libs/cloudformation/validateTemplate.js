@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 
 
-module.exports = templateBody => new Promise((resolve, reject) => {
+module.exports = (templateBody) => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
 
   const params = {
@@ -9,5 +9,5 @@ module.exports = templateBody => new Promise((resolve, reject) => {
   };
   return cloudformation.validateTemplate(params).promise()
     .then(resolve)
-    .catch(err => reject(new Error(err.message)));
+    .catch((err) => reject(new Error(err.message)));
 });
