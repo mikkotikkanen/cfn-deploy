@@ -1,6 +1,7 @@
 name: "npm test"
 
-on: [push]
+on:
+  push:
 
 jobs:
   npm-test:
