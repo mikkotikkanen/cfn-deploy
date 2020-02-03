@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # List node versions to run tests with
+        # List Node exeuction versions
         node-version: [12.x]
     steps:
       - uses: actions/checkout@v2
