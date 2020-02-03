@@ -1,12 +1,18 @@
 name: "npm publish"
 
-on:
-  release:
-    types: [published]
+on: [release]
 
 jobs:
-  publish-npm:
+  npm-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # List node versions to run tests with
+        node-version: [12.x]
+
+  npm-publish:
+    runs-on: ubuntu-latest
+    needs: "npm-test"
     strategy:
       matrix:
         # List node versions to run tests with
