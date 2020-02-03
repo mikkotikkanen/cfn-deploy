@@ -1,6 +1,6 @@
 const describeStack = require('./describeStack');
 
-module.exports = stackname => new Promise((resolve, reject) => {
+module.exports = (stackname) => new Promise((resolve, reject) => {
   describeStack(stackname)
     .then((stackData) => {
       // Only COMPLETE state stack can be updated
@@ -10,5 +10,5 @@ module.exports = stackname => new Promise((resolve, reject) => {
 
       resolve(stackData);
     })
-    .catch(err => reject(new Error(err.message)));
+    .catch((err) => reject(new Error(err.message)));
 });

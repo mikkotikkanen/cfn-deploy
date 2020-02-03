@@ -50,5 +50,5 @@ module.exports = (args, templateBody, paramsObj, tagsObj) => new Promise((resolv
         })
         .catch(() => reject(new Error(err.message)));
     })
-    .catch(err => reject(new Error(err.message)));
+    .catch((err) => reject(new Error(err.message)));
 });

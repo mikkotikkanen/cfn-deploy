@@ -24,7 +24,7 @@ describe('cfn-deploy', () => {
       template: './tests/templates/simple-template.yaml',
       tags: tagsArray,
     });
-    events.on('ERROR', err => done(err));
+    events.on('ERROR', (err) => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
     });

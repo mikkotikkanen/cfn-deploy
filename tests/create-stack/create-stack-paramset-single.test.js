@@ -12,7 +12,7 @@ describe('cfn-deploy', () => {
       template: './tests/templates/params-template.yaml',
       parameters: ['./tests/params/object-params.json'],
     });
-    events.on('ERROR', err => done(err));
+    events.on('ERROR', (err) => done(err));
     events.on('COMPLETE', (data) => {
       expect(data).toMatchSnapshot();
     });

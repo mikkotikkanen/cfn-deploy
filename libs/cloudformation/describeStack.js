@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 
 
-module.exports = stackname => new Promise((resolve, reject) => {
+module.exports = (stackname) => new Promise((resolve, reject) => {
   const cloudformation = new AWS.CloudFormation();
 
   const params = {

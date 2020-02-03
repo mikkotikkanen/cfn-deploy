@@ -37,7 +37,7 @@ const parameterMapper = (paramSet) => {
 
   // Plain JS object
   if (!Array.isArray(paramSetNew) && typeof paramSetNew === 'object') {
-    return Object.keys(paramSetNew).map(key => ({
+    return Object.keys(paramSetNew).map((key) => ({
       ParameterKey: key,
       ParameterValue: paramSetNew[key],
     }));
@@ -56,7 +56,7 @@ const parameterMapper = (paramSet) => {
  *
  * @param {Array} paramSets Parameter sets
  */
-const parseParameters = paramSets => new Promise((resolve) => {
+const parseParameters = (paramSets) => new Promise((resolve) => {
   // If no params are defined, resolve to empty array
   if (!paramSets) {
     return resolve([]);
