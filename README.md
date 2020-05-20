@@ -107,8 +107,10 @@ Write your application:
 const cfnDeploy = require('cfn-deploy');
 
 const eventStream = cfnDeploy({
+  region: 'us-east-1',
   stackname: 'fancy-stack',
-  template: 'cfn/cfn-stack.yaml',
+  template: 'cfn/cfn-stack.yaml', // if referencing external file
+  templateString: JSON.stringify(myCloudFormationJson), // if using a template string already in memory
 });
 
 eventStream.on('EXECUTING_CHANGESET', () => {
