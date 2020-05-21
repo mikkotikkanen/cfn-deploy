@@ -14,18 +14,18 @@ let isProgressBarRunning = false;
  */
 const startProgressBar = () => {
   let progressBarDots = chalk.hex(awsOrange)('.');
-  logUpdate.default(progressBarDots);
+  logUpdate(progressBarDots);
 
   progressBarTimer = setInterval(() => {
     progressBarDots += chalk.hex(awsOrange)('.');
-    logUpdate.default(progressBarDots);
+    logUpdate(progressBarDots);
   }, 5 * 1000);
 
   isProgressBarRunning = true;
 };
 const stopProgressBar = () => {
   clearInterval(progressBarTimer);
-  logUpdate.default.done();
+  logUpdate.done();
 
   isProgressBarRunning = false;
 };

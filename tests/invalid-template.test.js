@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk-mock');
-const lib = require('../');
+const lib = require('..');
 
 
 describe('CloudFormation.validateTemplate', () => {
