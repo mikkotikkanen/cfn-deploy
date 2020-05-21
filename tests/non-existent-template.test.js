@@ -1,4 +1,4 @@
-const lib = require('../');
+const lib = require('..');
 
 
 describe('CloudFormation.validateTemplate', () => {
