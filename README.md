@@ -1,5 +1,7 @@
 # cfn-deploy
 
+![Test](https://github.com/mikkotikkanen/cfn-deploy/workflows/Test/badge.svg)
+
 Simple utility for AWS CloudFormation deployments
 
 ## Description
