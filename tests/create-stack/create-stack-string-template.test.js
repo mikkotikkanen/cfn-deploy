@@ -1,6 +1,6 @@
+const { readFileSync } = require('fs');
 const mockCreateStack = require('../mocks/createStack');
 const lib = require('../..');
-const { readFileSync } = require('fs');
 
 describe('cfn-deploy', () => {
   beforeAll(() => mockCreateStack.beforeAll());
