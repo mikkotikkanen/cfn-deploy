@@ -57,7 +57,7 @@
     "test:eslint": "eslint .",
     "test:tsc": "tsc --project tsconfig.json",
     "test:jest": "jest",
-    "preversion": "npm test",
+    "prepublishOnly": "npm test",
     "update": "npm-check -u"
   }
 }
