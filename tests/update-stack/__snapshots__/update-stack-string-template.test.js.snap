@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cfn-deploy should successfully create new stack 1`] = `
+Object {
+  "Capabilities": Array [],
+  "ChangeSetName": "cfn-deploy",
+  "ChangeSetType": "UPDATE",
+  "Description": "Created with cfn-deploy",
+  "Parameters": Array [],
+  "StackName": "existing-stack",
+  "Tags": Array [],
+  "TemplateBody": "Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+",
+}
+`;
+
+exports[`cfn-deploy should successfully create new stack 2`] = `
+Object {
+  "StackStatus": "UPDATE_COMPLETE",
+}
+`;
