@@ -1,11 +1,11 @@
-name: Test
+name: Test Pull Request
 
 on:
-  push:
+  pull_request:
 
 jobs:
   test:
-    name: Test
+    name: Test Pull Request
     runs-on: ubuntu-latest
     strategy:
       matrix:
