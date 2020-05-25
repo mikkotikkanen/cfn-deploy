@@ -35,7 +35,12 @@ module.exports = (args) => {
   new Promise((resolve) => resolve())
     // Load files
     .then(() => events.emit('LOADING_FILES'))
-    .then(() => loadTemplateFile(args.template))
+    .then(() => {
+      if (args.templateString && args.templateString.length) {
+        return Promise.resolve(args.templateString);
+      }
+      return loadTemplateFile(args.template);
+    })
     .then((newTemplateString) => { templateString = newTemplateString; })
 
     // Parse params & tags
